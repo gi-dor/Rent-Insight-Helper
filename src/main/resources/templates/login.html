@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>로그인 - Rent Insight</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        /* 네비게이션 바가 생겼으므로 상단 여백을 조금 줄여줍니다 */
+        .login-card { max-width: 400px; margin: 0 auto; margin-top: 50px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-kakao { background-color: #FEE500; color: #191919; border: none; font-weight: 600; }
+        .btn-kakao:hover { background-color: #fdd835; color: #191919; }
+    </style>
+</head>
+<body>
+
+<!-- 상단 네비게이션 바 (추가됨) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">
+            <i class="bi bi-building"></i> Rent Insight
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">홈</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">실거래 상세 조회</a></li>
+                <!-- 로그인 페이지니까 로그인/회원가입 버튼은 굳이 보여줄 필요 없거나, 회원가입만 남겨둡니다 -->
+                <li class="nav-item ms-2">
+                    <a class="btn btn-primary btn-sm" href="/members/join">회원가입</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card login-card border-0">
+        <div class="card-body p-5">
+            <div class="text-center mb-4">
+                <a href="/" class="text-decoration-none text-dark">
+                    <h3 class="fw-bold"><i class="bi bi-building text-primary"></i> Rent Insight</h3>
+                </a>
+                <p class="text-muted mt-2">서비스 이용을 위해 로그인해주세요.</p>
+            </div>
+
+            <!-- 일반 로그인 폼 -->
+            <form action="/login" method="post">
+                <div class="mb-3">
+                    <label for="email" class="form-label">이메일</label>
+                    <input type="email" class="form-control" id="email" name="username" placeholder="name@example.com" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">비밀번호</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호 입력" required>
+                </div>
+                <div class="d-grid gap-2 mb-3">
+                    <button type="submit" class="btn btn-primary py-2">로그인</button>
+                </div>
+            </form>
+
+            <div class="text-center mb-3">
+                <span class="text-muted small">또는</span>
+            </div>
+
+            <!-- 카카오 로그인 버튼 -->
+            <div class="d-grid gap-2 mb-4">
+                <button type="button" class="btn btn-kakao py-2">
+                    <i class="bi bi-chat-fill me-2"></i> 카카오로 3초 만에 시작하기
+                </button>
+            </div>
+
+            <div class="text-center">
+                <p class="small text-muted mb-0">아직 회원이 아니신가요? <a href="/members/join" class="text-primary text-decoration-none fw-bold">회원가입</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
