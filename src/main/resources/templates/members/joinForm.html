@@ -10,7 +10,7 @@
     <div class="py-5 text-center">
         <h2>회원 가입</h2>
     </div>
-    <form th:action="@{/members/join}" th:object="${joinRequest}" method="post">
+    <form th:action="@{/members/join}" th:object="${memberDTO}" method="post">
         <div class="form-group">
             <label th:for="email">이메일</label>
             <input type="text" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요">
@@ -22,6 +22,10 @@
         <div class="form-group">
             <label th:for="name">이름</label>
             <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="nickname">닉네임</label>
+            <input type="text" th:field="*{nickname}" class="form-control" placeholder="닉네임을 입력하세요">
         </div>
         <button class="btn btn-primary" type="submit">가입하기</button>
     </form>
