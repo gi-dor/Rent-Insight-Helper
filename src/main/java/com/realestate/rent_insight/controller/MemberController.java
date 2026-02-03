@@ -1,5 +1,6 @@
 package com.realestate.rent_insight.controller;
 
+import com.realestate.rent_insight.common.exception.DuplicateFieldException;
 import com.realestate.rent_insight.dto.MemberDTO;
 import com.realestate.rent_insight.service.MemberService;
 import jakarta.validation.Valid;
@@ -43,13 +44,35 @@ public class MemberController {
         if (bindingResult.hasErrors()) {
             // 이런거 쓰면 병목현상?? 일어난다고 뚜드러 맞는다고함
             // 성능저하 , 로그 관리 불가능 하다고함 , 휘발성이라 과거 에러기록 못찾음
-//            System.out.println("검증 오류 발생: " + bindingResult.getAllErrors());
+            // System.out.println("검증 오류 발생: " + bindingResult.getAllErrors());
             log.warn("검증 오류 발생 ! target : {} , error : {}",
                     bindingResult.getObjectName(),
                     bindingResult.getAllErrors());
 
             // 검증 잡히면 회원가입 폼으로 다시
             return "members/joinForm";
+        }
+        try {
+            memberService.join(
+                    memberDTO.getEmail(),
+                    memberDTO.getPassword(),
+                    memberDTO.getName(),
+                    memberDTO.getNickname()
+            );
+        } catch (DuplicateFieldException e) {
+            // 1. 중복된 값이 무엇인지 추출 (이메일 혹은 닉네임)
+            String duplicateValue = e.getField().equals("nickname")
+                    ? memberDTO.getNickname()
+                    : memberDTO.getEmail();
+
+            // 2. 로그 남기기
+            log.warn("[FIELD_DUPLICATE_ERROR] Field: {}, Message: {}, Value: {}",
+                    e.getField(), e.getMessage(),
+                    e.getField().equals("nickname") ? memberDTO.getNickname() : memberDTO.getEmail());
+
+            bindingResult.rejectValue(e.getField(), "duplicate", e.getMessage());
+            return "members/joinForm";
+
         }
 
         // 검증 통과하면 회원가입 고고

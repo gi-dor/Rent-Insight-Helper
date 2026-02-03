@@ -1,5 +1,6 @@
 package com.realestate.rent_insight.service;
 
+import com.realestate.rent_insight.common.exception.DuplicateFieldException;
 import com.realestate.rent_insight.domain.constant.MemberRole;
 import com.realestate.rent_insight.domain.entity.Member;
 import com.realestate.rent_insight.domain.repository.MemberRepository;
@@ -57,7 +58,7 @@ public class MemberService {
      */
     private void validateDuplicateEmail(String email) {
         if (memberRepository.existsByEmail(email)) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+            throw new DuplicateFieldException("email","이미 존재하는 회원(이메일)입니다.");
         }
     }
 
@@ -67,7 +68,7 @@ public class MemberService {
      */
     private void validateDuplicateNickName(String nickname) {
         if (memberRepository.existsByNickname(nickname)) {
-            throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
+            throw new DuplicateFieldException("nickname","이미 존재하는 닉네임 입니다.");
         }
     }
 }
