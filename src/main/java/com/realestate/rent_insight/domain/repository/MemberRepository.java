@@ -15,4 +15,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // 이메일 중복 체크용 (회원가입할 때 필요함)
     // SQL: select count(*) from member where email = ?
     boolean existsByEmail(String email);
+
+    // 닉네임 중복체크 (회원가입)
+    boolean existsByNickname(String nickname);
 }

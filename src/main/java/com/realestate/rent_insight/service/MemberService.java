@@ -16,12 +16,21 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     /**
-     * 회원 가입
+     * 회원가입
+     * @param email
+     * @param password
+     * @param name
+     * @param nickname
+     * @return
      */
     @Transactional
     public Long join(String email, String password, String name ,String nickname) {
         // 회원 가입 전에 이메일 중복 체크
-        validateDuplicateMember(email);
+        validateDuplicateEmail(email);
+
+        // 회원가입전에 닉네임 중복체크
+        validateDuplicateNickName(nickname);
+
 
         // 기본적으로 회원 가입시 시작은 일반 사용자(USER) 권한 부여
 //        Member member = new Member(email, password, name, nickname, null, MemberRole.USER, null, null);
@@ -42,9 +51,23 @@ public class MemberService {
         return savedMember.getId();
     }
 
-    private void validateDuplicateMember(String email) {
+    /**
+     * 이메일 중복 체크
+     * @param email
+     */
+    private void validateDuplicateEmail(String email) {
         if (memberRepository.existsByEmail(email)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
+    }
+
+    /**
+     * 닉네임 중복 체크
+     * @param nickname
+     */
+    private void validateDuplicateNickName(String nickname) {
+        if (memberRepository.existsByNickname(nickname)) {
+            throw new IllegalStateException("이미 존재하는 닉네임 입니다.");
         }
     }
 }
