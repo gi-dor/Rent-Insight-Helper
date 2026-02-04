@@ -26,30 +26,7 @@
 <body>
 
 <!-- 네비게이션 바 -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="/">
-            <i class="bi bi-building"></i> Rent Insight
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav align-items-center">
-                <li class="nav-item"><a class="nav-link active" href="/">홈</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">실거래 상세 조회</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">통계 분석</a></li>
-                <!-- 로그인 전 -->
-                <li class="nav-item ms-2">
-                    <a class="btn btn-outline-light btn-sm" href="/login">로그인</a>
-                </li>
-                <li class="nav-item ms-2">
-                    <a class="btn btn-primary btn-sm" href="/members/join">회원가입</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<nav th:replace="~{common/navbar :: navbar}"></nav>
 
 <!-- 히어로 섹션 (검색창) -->
 <section class="hero-section text-center">
