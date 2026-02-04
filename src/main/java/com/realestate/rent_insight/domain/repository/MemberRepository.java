@@ -10,12 +10,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // 이메일로 회원 찾기 (로그인할 때 검색해서)
     // SQL: select * from member where email = ?
-    Optional<Member> findByEmail(String email);
+    Member findByEmail(String email);
 
     // 이메일 중복 체크용 (회원가입할 때 필요함)
     // SQL: select count(*) from member where email = ?
     boolean existsByEmail(String email);
 
     // 닉네임 중복체크 (회원가입)
+    // SQL : select count(*) from member where nickname = ?
     boolean existsByNickname(String nickname);
 }

@@ -11,8 +11,9 @@ public class ViewController {
         return "index"; // templates/index.html
     }
 
-    @GetMapping("/login")
-    public String login(){
-        return "login"; // templates/login.html
+
+    @GetMapping("/members/joinComplete")
+    public String joinComplete() {
+        return "members/joinComplete"; // templates/joinComplete.html
     }
 }
