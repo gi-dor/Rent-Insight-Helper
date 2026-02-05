@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는  매퍼 인터페이스의 전체 경로와 정확히 일치 -->
+<mapper namespace="com.realestate.rent_insight.domain.mapper.RentContractMapper">
+
+    <!--
+        id: 매퍼 인터페이스의 메서드 이름(findByComplexConditions)이랑 일치
+        parameterType: 이 쿼리가 파라미터로 받는 객체의 타입입니다. (우리가 만든 DTO)
+        resultType: 이 쿼리가 반환하는 결과 한 줄 한 줄을 어떤 객체에 담을지 지정합니다. (엔티티)
+    -->
+    <select id="findByComplexConditions"
+            parameterType="com.realestate.rent_insight.dto.RentContractSearchDTO"
+            resultType="com.realestate.rent_insight.domain.entity.RentContract">
+        SELECT
+            id,                             -- 계약 고유번호
+            contract_date AS contractDate,  -- 계약일
+            sgg_cd AS sggCd,                -- 시군구 코드
+            sgg_nm AS sggNm,                -- 시군구 이름
+            umd_nm AS umdNm,                -- 법정동 이름
+            jibun,                          -- 지번 주소
+            name,                           -- 오피스텔 단지명
+            deposit,                        -- 보증금
+            monthly_rent AS monthlyRent,    -- 월세
+            area,                           -- 전용 면적
+            build_year AS buildYear,        -- 건축 년도
+            floor,                          -- 층수
+            contract_term AS contractTerm,  -- 계약 기간
+            contract_type AS contractType   -- 계약 종류 (신규/갱신)
+        FROM
+            rent_contract
+        <!-- <where> 태그는 내부의 <if> 조건이 하나라도 참이면, 자동으로 "WHERE" 키워드를 붙여주고,
+             맨 앞에 오는 "AND"를 지워줌. -->
+        <where>
+            <!-- searchDto의 sggNm 필드가 비어있지 않으면, 이 AND 조건을 추가. -->
+            <if test="sggNm != null and sggNm != ''">
+                AND sgg_nm = #{sggNm}
+            </if>
+            <!-- searchDto의 umdNm 필드가 비어있지 않으면, 이 AND 조건을 추가 -->
+            <if test="umdNm != null and umdNm != ''">
+                AND umd_nm = #{umdNm}
+            </if>
+            <!-- searchDto의 name 필드가 비어있지 않으면, 이 AND 조건을 추가 -->
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <!-- searchDto의 minDeposit과 maxDeposit 필드가 모두 존재하면, 이 AND 조건을 추가 -->
+            <if test="minDeposit != null and maxDeposit != null">
+                AND deposit BETWEEN #{minDeposit} AND #{maxDeposit}
+            </if>
+            <!-- searchDto의 minRent와 maxRent 필드가 모두 존재하면, 이 AND 조건을 추가 -->
+            <if test="minRent != null and maxRent != null">
+                AND monthly_rent BETWEEN #{minRent} AND #{maxRent}
+            </if>
+        </where>
+    </select>
+
+</mapper>
