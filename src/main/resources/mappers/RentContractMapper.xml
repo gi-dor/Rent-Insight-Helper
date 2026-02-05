@@ -42,6 +42,7 @@
                 AND monthly_rent BETWEEN #{minRent} AND #{maxRent}
             </if>
         </where>
+        ORDER BY contract_date DESC
     </select>
 
 </mapper>
