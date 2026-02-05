@@ -21,6 +21,7 @@
 
 <!-- 상단 네비게이션 바 (공통) -->
 <nav th:replace="~{common/navbar :: navbar}"></nav>
+<br>
 
 <div class="container mb-5">
     <h3 class="fw-bold mb-4"><i class="bi bi-search"></i> 실거래가 상세 조회</h3>
@@ -35,17 +36,17 @@
                     <!-- 지역 검색 -->
                     <div class="col-md-4">
                         <label for="sgg-select" class="form-label fw-bold small">지역 (시군구)</label>
-                        <!-- [수정] th:each를 사용하여 시군구 목록을 동적으로 생성 -->
-                        <select id="sgg-select" class="form-select" th:field="*{sggNm}">
+                        <!-- [수정] th:field를 sggCode에 연결 -->
+                        <select id="sgg-select" class="form-select" th:field="*{sggCode}">
                             <option value="">-- 시군구 선택 --</option>
-                            <option th:each="sgg : ${sigunguList}" th:value="${sgg}" th:text="${sgg}"></option>
+                            <option th:each="sgg : ${sigunguList}" th:value="${sgg.code}" th:text="${sgg.name}"></option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label for="umd-select" class="form-label fw-bold small">법정동</label>
-                        <select id="umd-select" class="form-select" th:field="*{umdNm}">
+                        <!-- [수정] th:field를 umdName에 연결 -->
+                        <select id="umd-select" class="form-select" th:field="*{umdName}">
                             <option value="">-- 시군구를 먼저 선택하세요 --</option>
-                            <!-- (TODO) 이 부분은 JavaScript가 동적으로 채워줍니다. -->
                         </select>
                     </div>
                     <div class="col-md-4">
@@ -92,7 +93,6 @@
         <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="mb-0 fw-bold">검색 결과 <span class="text-primary" th:text="${contracts.size()} + '건'">0건</span></h5>
-                <!-- 엑셀 다운로드 버튼 (나중을 위해 미리 배치) -->
                 <button class="btn btn-success btn-sm"><i class="bi bi-file-earmark-excel"></i> 엑셀 다운로드</button>
             </div>
         </div>
@@ -112,15 +112,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- 데이터가 없을 경우 -->
                     <tr th:if="${#lists.isEmpty(contracts)}">
                         <td colspan="8" class="py-5 text-muted">
                             <i class="bi bi-exclamation-circle display-6 d-block mb-3"></i>
                             검색 결과가 없습니다. 조건을 변경해보세요.
                         </td>
                     </tr>
-
-                    <!-- 데이터 반복 출력 -->
                     <tr th:each="item : ${contracts}">
                         <td th:text="${item.contractDate}">2024-02-01</td>
                         <td>
@@ -130,7 +127,6 @@
                         <td th:text="${item.name}" class="text-start fw-bold">개포자이</td>
                         <td th:text="${item.area} + '㎡'">84.9㎡</td>
                         <td th:text="${item.floor} + '층'">15층</td>
-                        <!-- #numbers 유틸리티로 천단위 콤마 찍기 -->
                         <td class="price-text" th:text="${#numbers.formatInteger(item.deposit, 0, 'COMMA')}">50,000</td>
                         <td th:text="${item.monthlyRent > 0 ? #numbers.formatInteger(item.monthlyRent, 0, 'COMMA') : '-'}">100</td>
                         <td th:text="${item.buildYear}">2020</td>
@@ -143,5 +139,53 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- [추가] 1. jQuery 라이브러리를 불러옵니다. -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- [추가] 2. 연동 드롭다운을 위한 jQuery 코드 -->
+<script>
+    // 페이지가 완전히 로드된 후에, 이 안의 코드를 실행합니다.
+    $(document).ready(function() {
+
+        // 시군구 드롭다운(#sgg-select)의 값이 변경될 때마다, 이 안의 함수를 실행합니다.
+        $('#sgg-select').on('change', function() {
+
+            // 선택된 시군구의 코드 값을 가져옵니다. (예: "1111000000")
+            const selectedSigunguCode = $(this).val();
+            const dongSelect = $('#umd-select'); // 법정동 드롭다운
+
+            // 법정동 드롭다운의 기존 목록을 초기화합니다.
+            dongSelect.html('<option value="">-- 법정동 선택 --</option>');
+
+            // 만약 "-- 시군구 선택 --"을 다시 선택하면(값이 비어있으면), 아무것도 하지 않고 종료합니다.
+            if (!selectedSigunguCode) {
+                dongSelect.html('<option value="">-- 시군구를 먼저 선택하세요 --</option>');
+                return;
+            }
+
+            // jQuery의 ajax 함수를 사용하여, 우리 백엔드 API를 호출합니다.
+            $.ajax({
+                url: '/api/regions/dong', // 우리가 만든 동 목록 API 주소
+                type: 'GET',
+                data: { sigunguCode: selectedSigunguCode }, // ?sigunguCode=1111000000 형식으로 요청
+                success: function(dongList) {
+                    // API 호출이 성공하면, 받아온 동 목록(dongList)으로 드롭다운을 채웁니다.
+                    dongList.forEach(function(dong) {
+                        // 새로운 <option> 태그를 만들어서 추가합니다.
+                        // value에는 동 이름을, 텍스트에도 동 이름을 넣습니다.
+                        dongSelect.append(`<option value="${dong.name}">${dong.name}</option>`);
+                    });
+                },
+                error: function(error) {
+                    // API 호출이 실패하면, 에러 메시지를 표시합니다.
+                    console.error('Error fetching dong list:', error);
+                    dongSelect.html('<option value="">동 목록을 불러오는데 실패했습니다.</option>');
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -1,15 +1,16 @@
 package com.realestate.rent_insight;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@EnableJpaAuditing  // 이 어노테이션을 추가해야 생성일/수정일 자동 관리가 작동한다고함 @CreatedDate , @LastModifiedDate
+@EnableJpaAuditing  // JPA의 Auditing 기능을 활성화합니다. (생성일/수정일 자동 관리)
+@MapperScan("com.realestate.rent_insight.domain.mapper") // MyBatis 매퍼 인터페이스가 있는 패키지 경로를 지정
 @SpringBootApplication
 public class RentInsightApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RentInsightApplication.class, args);
 	}
-//
 }
