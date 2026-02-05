@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>실거래가 상세 조회 - Rent Insight</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .search-card { border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-radius: 12px; }
+        .result-card { border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-radius: 12px; margin-top: 20px; }
+        .table th { background-color: #f1f3f5; font-weight: 600; font-size: 0.9rem; }
+        .table td { vertical-align: middle; font-size: 0.9rem; }
+        .price-text { font-weight: bold; color: #0d6efd; }
+    </style>
+</head>
+<body>
+
+<!-- 상단 네비게이션 바 (공통) -->
+<nav th:replace="~{common/navbar :: navbar}"></nav>
+
+<div class="container mb-5">
+    <h3 class="fw-bold mb-4"><i class="bi bi-search"></i> 실거래가 상세 조회</h3>
+
+    <!-- 1. 검색 필터 영역 -->
+    <div class="card search-card mb-4">
+        <div class="card-body p-4">
+            <!-- 검색 Form (GET 방식 권장) -->
+            <form action="/rent/search" method="get" th:object="${searchDto}">
+                <div class="row g-3">
+
+                    <!-- 지역 검색 -->
+                    <div class="col-md-4">
+                        <label for="sgg-select" class="form-label fw-bold small">지역 (시군구)</label>
+                        <!-- [수정] th:each를 사용하여 시군구 목록을 동적으로 생성 -->
+                        <select id="sgg-select" class="form-select" th:field="*{sggNm}">
+                            <option value="">-- 시군구 선택 --</option>
+                            <option th:each="sgg : ${sigunguList}" th:value="${sgg}" th:text="${sgg}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="umd-select" class="form-label fw-bold small">법정동</label>
+                        <select id="umd-select" class="form-select" th:field="*{umdNm}">
+                            <option value="">-- 시군구를 먼저 선택하세요 --</option>
+                            <!-- (TODO) 이 부분은 JavaScript가 동적으로 채워줍니다. -->
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small">건물명</label>
+                        <input type="text" class="form-control" th:field="*{name}" placeholder="아파트/오피스텔 이름">
+                    </div>
+
+                    <hr class="my-4 text-muted">
+
+                    <!-- 보증금 범위 -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small"><i class="bi bi-coin"></i> 보증금 범위 (만원)</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" th:field="*{minDeposit}" placeholder="최소">
+                            <span class="input-group-text">~</span>
+                            <input type="number" class="form-control" th:field="*{maxDeposit}" placeholder="최대">
+                        </div>
+                    </div>
+
+                    <!-- 월세 범위 -->
+                    <div class.="col-md-6">
+                        <label class="form-label fw-bold small"><i class="bi bi-cash-stack"></i> 월세 범위 (만원)</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" th:field="*{minRent}" placeholder="최소">
+                            <span class="input-group-text">~</span>
+                            <input type="number" class="form-control" th:field="*{maxRent}" placeholder="최대">
+                        </div>
+                    </div>
+
+                    <!-- 검색 버튼 -->
+                    <div class="col-12 text-end mt-4">
+                        <a href="/rent/search" class="btn btn-outline-secondary me-2">초기화</a>
+                        <button type="submit" class="btn btn-primary px-4 fw-bold">
+                            <i class="bi bi-search"></i> 조건 검색
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. 검색 결과 리스트 영역 -->
+    <div class="card result-card">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold">검색 결과 <span class="text-primary" th:text="${contracts.size()} + '건'">0건</span></h5>
+                <!-- 엑셀 다운로드 버튼 (나중을 위해 미리 배치) -->
+                <button class="btn btn-success btn-sm"><i class="bi bi-file-earmark-excel"></i> 엑셀 다운로드</button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0 text-center">
+                    <thead>
+                    <tr>
+                        <th>계약일</th>
+                        <th>지역</th>
+                        <th>단지명</th>
+                        <th>전용면적</th>
+                        <th>층</th>
+                        <th>보증금(만원)</th>
+                        <th>월세(만원)</th>
+                        <th>건축년도</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 데이터가 없을 경우 -->
+                    <tr th:if="${#lists.isEmpty(contracts)}">
+                        <td colspan="8" class="py-5 text-muted">
+                            <i class="bi bi-exclamation-circle display-6 d-block mb-3"></i>
+                            검색 결과가 없습니다. 조건을 변경해보세요.
+                        </td>
+                    </tr>
+
+                    <!-- 데이터 반복 출력 -->
+                    <tr th:each="item : ${contracts}">
+                        <td th:text="${item.contractDate}">2024-02-01</td>
+                        <td>
+                            <span th:text="${item.sggNm}">강남구</span>
+                            <span th:text="${item.umdNm}" class="text-muted small">역삼동</span>
+                        </td>
+                        <td th:text="${item.name}" class="text-start fw-bold">개포자이</td>
+                        <td th:text="${item.area} + '㎡'">84.9㎡</td>
+                        <td th:text="${item.floor} + '층'">15층</td>
+                        <!-- #numbers 유틸리티로 천단위 콤마 찍기 -->
+                        <td class="price-text" th:text="${#numbers.formatInteger(item.deposit, 0, 'COMMA')}">50,000</td>
+                        <td th:text="${item.monthlyRent > 0 ? #numbers.formatInteger(item.monthlyRent, 0, 'COMMA') : '-'}">100</td>
+                        <td th:text="${item.buildYear}">2020</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
