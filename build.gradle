@@ -25,6 +25,8 @@ repositories {
 }
 
 dependencies {
+	// Jackson XML 포맷 지원 라이브러리: XML 데이터를 Java 객체로 쉽게 변환하기 위해 필요합니다.
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 	// Spring Security 의존성 추가: 인증, 권한 부여 및 비밀번호 암호화 기능을 제공.
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
