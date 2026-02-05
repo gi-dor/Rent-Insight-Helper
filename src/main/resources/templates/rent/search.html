@@ -21,6 +21,7 @@
 
 <!-- 상단 네비게이션 바 (공통) -->
 <nav th:replace="~{common/navbar :: navbar}"></nav>
+
 <br>
 
 <div class="container mb-5">
@@ -29,14 +30,12 @@
     <!-- 1. 검색 필터 영역 -->
     <div class="card search-card mb-4">
         <div class="card-body p-4">
-            <!-- 검색 Form (GET 방식 권장) -->
             <form action="/rent/search" method="get" th:object="${searchDto}">
                 <div class="row g-3">
 
                     <!-- 지역 검색 -->
                     <div class="col-md-4">
                         <label for="sgg-select" class="form-label fw-bold small">지역 (시군구)</label>
-                        <!-- [수정] th:field를 sggCode에 연결 -->
                         <select id="sgg-select" class="form-select" th:field="*{sggCode}">
                             <option value="">-- 시군구 선택 --</option>
                             <option th:each="sgg : ${sigunguList}" th:value="${sgg.code}" th:text="${sgg.name}"></option>
@@ -44,7 +43,6 @@
                     </div>
                     <div class="col-md-4">
                         <label for="umd-select" class="form-label fw-bold small">법정동</label>
-                        <!-- [수정] th:field를 umdName에 연결 -->
                         <select id="umd-select" class="form-select" th:field="*{umdName}">
                             <option value="">-- 시군구를 먼저 선택하세요 --</option>
                         </select>
@@ -67,7 +65,7 @@
                     </div>
 
                     <!-- 월세 범위 -->
-                    <div class.="col-md-6">
+                    <div class="col-md-6">
                         <label class="form-label fw-bold small"><i class="bi bi-cash-stack"></i> 월세 범위 (만원)</label>
                         <div class="input-group">
                             <input type="number" class="form-control" th:field="*{minRent}" placeholder="최소">
@@ -135,50 +133,73 @@
                 </table>
             </div>
         </div>
+
+        <!-- 페이징 처리 UI (현재는 동작하지 않는 모형) -->
+        <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+            <ul class="pagination">
+                <!-- '이전' 버튼 (모형) -->
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <!-- 페이지 번호 (모형) -->
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+
+                <!-- '다음' 버튼 (모형) -->
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
     </div>
 </div>
 
+<footer th:replace="~{common/footer :: footer}"></footer>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- [추가] 1. jQuery 라이브러리를 불러옵니다. -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<!-- [추가] 2. 연동 드롭다운을 위한 jQuery 코드 -->
 <script>
-    // 페이지가 완전히 로드된 후에, 이 안의 코드를 실행합니다.
+    // 페이지가 완전히 로드된 후에, 이 안의 코드를 실행
     $(document).ready(function() {
-
-        // 시군구 드롭다운(#sgg-select)의 값이 변경될 때마다, 이 안의 함수를 실행합니다.
+        // 시군구 드롭다운(#sgg-select)의 값이 변경될 때마다, 이 안의 함수를 실행
         $('#sgg-select').on('change', function() {
-
             // 선택된 시군구의 코드 값을 가져옵니다. (예: "1111000000")
             const selectedSigunguCode = $(this).val();
             const dongSelect = $('#umd-select'); // 법정동 드롭다운
 
-            // 법정동 드롭다운의 기존 목록을 초기화합니다.
+            // 법정동 드롭다운의 기존 목록을 초기화
             dongSelect.html('<option value="">-- 법정동 선택 --</option>');
-
-            // 만약 "-- 시군구 선택 --"을 다시 선택하면(값이 비어있으면), 아무것도 하지 않고 종료합니다.
+            // 만약 "-- 시군구 선택 --"을 다시 선택하면(값이 비어있으면), 아무것도 하지 않고 종료
             if (!selectedSigunguCode) {
                 dongSelect.html('<option value="">-- 시군구를 먼저 선택하세요 --</option>');
                 return;
             }
-
-            // jQuery의 ajax 함수를 사용하여, 우리 백엔드 API를 호출합니다.
+            // jQuery의 ajax 함수를 사용하여, 우리 백엔드 API를 호출
             $.ajax({
-                url: '/api/regions/dong', // 우리가 만든 동 목록 API 주소
+                url: '/api/regions/dong', // 만든 ㅇㅇ동 목록API
                 type: 'GET',
                 data: { sigunguCode: selectedSigunguCode }, // ?sigunguCode=1111000000 형식으로 요청
                 success: function(dongList) {
-                    // API 호출이 성공하면, 받아온 동 목록(dongList)으로 드롭다운을 채웁니다.
+                    // API 호출이 성공하면, 받아온 동 목록(dongList)으로 드롭다운을 채dna
                     dongList.forEach(function(dong) {
-                        // 새로운 <option> 태그를 만들어서 추가합니다.
-                        // value에는 동 이름을, 텍스트에도 동 이름을 넣습니다.
+                        // 새로운 <option> 태그를 만들어서 추가
+                        // value에는 동 이름을, 텍스트에도 동 이름을 넣는다.
                         dongSelect.append(`<option value="${dong.name}">${dong.name}</option>`);
                     });
                 },
                 error: function(error) {
-                    // API 호출이 실패하면, 에러 메시지를 표시합니다.
+                    // API 호출이 실패하면, 에러 메시지를 표시
                     console.error('Error fetching dong list:', error);
                     dongSelect.html('<option value="">동 목록을 불러오는데 실패했습니다.</option>');
                 }
