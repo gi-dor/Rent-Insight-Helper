@@ -100,10 +100,8 @@ public class MemberService {
             return null;
         }
 
-        // 데이터베이스에 저장된 암호문(member.getPassword())과
-        // 사용자가 방금 입력한 날것의 비밀번호(password)가 서로 짝이 맞는지 확인
-        // passwordEncoder.matches() 라는 마법 기계가 이 작업을 대신 해줌
-        // 절대로 암호문을 풀어서 비교하지 않습니다!
+        // 데이터베이스에 저장된 암호문(member.getPassword())과 사용자가 방금 입력한 날것의 비밀번호(password)가 서로 짝이 맞는지 확인
+        // passwordEncoder.matches()가 작업을 대신 해줌 절대로 암호문을 풀어서 비교하지 않는다
         if(!passwordEncoder.matches(password, member.getPassword())) {
             // 만약 짝이 맞지 않는다면, 비밀번호가 틀린 것이므로 null을 반환하고 끝낸다
             return null;
