@@ -1,4 +1,4 @@
-package com.realestate.rent_insight.domain.constant;
+package com.realestate.rent_insight.domain.entity;
 
 
 import lombok.Getter;
