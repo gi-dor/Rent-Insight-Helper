@@ -1,6 +1,5 @@
 package com.realestate.rent_insight.domain.entity;
 
-import com.realestate.rent_insight.domain.constant.MemberRole;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,10 +18,10 @@ import java.time.LocalDateTime;
 public class Member { // Java에는 Member 객체있음 , DB에는 member 라는 테이블 있음 이걸 1:1 매핑해주는 Entity
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 내가 건들이지 않고 DB가 알아서 증가시킴
     private Long id;        // 회원 고유 ID
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)        // 중복 불가
     private String email;   // 이메일 (로그인 ID)
 
     @Column(nullable = false)

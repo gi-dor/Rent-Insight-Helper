@@ -1,7 +1,7 @@
 package com.realestate.rent_insight.service;
 
 import com.realestate.rent_insight.common.exception.DuplicateFieldException;
-import com.realestate.rent_insight.domain.constant.MemberRole;
+import com.realestate.rent_insight.domain.entity.MemberRole;
 import com.realestate.rent_insight.domain.entity.Member;
 import com.realestate.rent_insight.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

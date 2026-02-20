@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 // 플리케이션이 실행될 때, 스프링이 내부적으로 해당 인터페이스를 구현한 실제 클래스를 자동으로 생성해서 메모리에 올려줌
-// 이게 Proxy 객체라는디 ??
+// 이게 스프링의 Proxy 객체라는디 ??
+// 인터페이스인데 implements 로 구현없이 JPARepository 상속받으면 구현체를 만들어준데 이걸 프록시 객체라고하네
 public interface MemberRepository extends JpaRepository<Member, Long> {
     // 기본 기능 외에 우리가 필요한 검색 기능을 이름만으로 만들 수 있습니다.
 

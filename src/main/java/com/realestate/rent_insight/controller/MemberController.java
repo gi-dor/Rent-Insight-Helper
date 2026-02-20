@@ -26,7 +26,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    // 단순 회원가입 폼 보여주기
+    // 단순 회원가입 폼 보여주기 - @ModelAttribute 생략가능 스프링에서 객체 일경우 자동으로 박아줌 굿
     @GetMapping("/join")
     public String joinForm(@ModelAttribute("memberDTO") MemberDTO memberDTO) {
         return "members/joinForm";
@@ -57,7 +57,7 @@ public class MemberController {
         }
         // 실제 비즈니스 로직
         try {
-            memberService.join(
+            memberService.join(     // join 메서드내에 이미 중복검사 코드 박아져있음
                     memberDTO.getEmail(),
                     memberDTO.getPassword(),
                     memberDTO.getName(),
@@ -73,8 +73,7 @@ public class MemberController {
             log.warn("[FIELD_DUPLICATE_ERROR] Field: {}, Message: {}, Value: {}",
                     e.getField(), e.getMessage(),
                     e.getField().equals("nickname") ?
-                            memberDTO.getNickname()
-                            : memberDTO.getEmail());
+                            memberDTO.getNickname() : memberDTO.getEmail());
 
             bindingResult.rejectValue(e.getField(), "duplicate", e.getMessage());
             return "members/joinForm";
@@ -82,7 +81,7 @@ public class MemberController {
         }
 
         log.info("회원가입 완료 ,  이름 : {} , 이메일(아이디) {}",memberDTO.getName(),memberDTO.getEmail());
-        return "redirect:/members/joinComplete";
+        return "redirect:/members/joinComplete";    // 새로고침 -> 중복 가입 방지
     }
 
     // 단순 회원가입 폼 보여주기
@@ -93,7 +92,7 @@ public class MemberController {
 
     //
     @PostMapping("/login")
-    public String loginComplete(@ModelAttribute MemberDTO memberDTO,BindingResult bindingResult,HttpServletRequest request) {
+    public String loginComplete(@Valid @ModelAttribute MemberDTO memberDTO,BindingResult bindingResult,HttpServletRequest request) {
         // DTO에서 정의한 입력값 검증하기
         if (bindingResult.hasErrors()) {
             return "login"; // login.html
@@ -101,6 +100,7 @@ public class MemberController {
 
         // memberService에서 login 메서드 호출
         Member loginMember = memberService.login(memberDTO.getEmail(), memberDTO.getPassword());
+
 
         // 로그인 실패 처리 - 아이디 공백 , 비밀번호 틀릴경우
         if (loginMember == null) {
