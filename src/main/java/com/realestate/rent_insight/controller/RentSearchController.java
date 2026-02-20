@@ -4,7 +4,7 @@ import com.realestate.rent_insight.domain.entity.Region;
 import com.realestate.rent_insight.domain.entity.RentContract;
 import com.realestate.rent_insight.dto.RentContractSearchDTO;
 import com.realestate.rent_insight.service.RegionService;
-import com.realestate.rent_insight.service.RentSearchService;
+//import com.realestate.rent_insight.service.RentSearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/rent")
 public class RentSearchController {
 
-    private final RentSearchService rentSearchService;
+//    private final RentSearchService rentSearchService;
     private final RegionService regionService;
 
     @GetMapping("/search")
@@ -29,10 +29,11 @@ public class RentSearchController {
         model.addAttribute("sigunguList", sigunguList);
 
         // 2. 서비스 계층을 호출하여 검색 조건에 맞는 데이터를 조회
-        List<RentContract> searchResult = rentSearchService.searchRentContracts(searchDto);
-        model.addAttribute("contracts", searchResult);
+//        List<RentContract> searchResult = rentSearchService.searchRentContracts(searchDto);
+//        model.addAttribute("contracts", searchResult);
 
         // 3. 뷰
         return "rent/search";
     }
+
 }
