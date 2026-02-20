@@ -70,7 +70,6 @@ public class RentComplete {
     private String contractType; // 계약구분 (예: 신규, 갱신)
 
     /**
-     * 빌더 패턴을 사용하여 RentContract 객체를 생성합니다.
      * @param contractDate 계약일 (API의 dealYear, dealMonth, dealDay)
      * @param sggCd 시군구 코드 (API의 sggCd)
      * @param sggNm 시군구명 (API의 sggNm)
