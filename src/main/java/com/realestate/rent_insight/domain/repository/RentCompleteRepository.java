@@ -1,11 +1,9 @@
 package com.realestate.rent_insight.domain.repository;
 
-import com.realestate.rent_insight.domain.entity.RentContract;
+import com.realestate.rent_insight.domain.entity.RentComplete;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface RentContractRepository extends JpaRepository<RentContract, Long> {
+public interface RentCompleteRepository extends JpaRepository<RentComplete, Long> {
 
     /**
      * 시군구명(sggNm)과 법정동명(umdNm)을 '모두' 만족하는 계약 목록을 조회합니다.
@@ -15,7 +13,7 @@ public interface RentContractRepository extends JpaRepository<RentContract, Long
      * @param umdNm 조회할 법정동명 (예: "역삼동")
      * @return 해당 지역의 계약 목록
      */
-    List<RentContract> findBySggNmAndUmdNm(String sggNm, String umdNm);
+   // List<RentContract> findBySggNmAndUmdNm(String sggNm, String umdNm);
 
     /**
      * [단일 조건] 단지명(name)이 포함된 계약 목록을 조회합니다.
@@ -24,7 +22,7 @@ public interface RentContractRepository extends JpaRepository<RentContract, Long
      * @param name 검색할 단지명의 일부 또는 전체
      * @return 해당 단지명이 포함된 계약 목록
      */
-    List<RentContract> findByNameContaining(String name);
+   // List<RentContract> findByNameContaining(String name);
 
     /**
      * [단일 조건] 보증금(deposit)이 특정 범위(min ~ max)에 있는 계약 목록을 조회합니다.
@@ -34,7 +32,7 @@ public interface RentContractRepository extends JpaRepository<RentContract, Long
      * @param maxDeposit 최대 보증금
      * @return 해당 보증금 범위의 계약 목록
      */
-    List<RentContract> findByDepositBetween(Integer minDeposit, Integer maxDeposit);
+   // List<RentContract> findByDepositBetween(Integer minDeposit, Integer maxDeposit);
 
     /**
      * [단일 조건] 월세(monthlyRent)가 특정 범위(min ~ max)에 있는 계약 목록을 조회합니다.
@@ -43,6 +41,6 @@ public interface RentContractRepository extends JpaRepository<RentContract, Long
      * @param maxRent 최대 월세
      * @return 해당 월세 범위의 계약 목록
      */
-    List<RentContract> findByMonthlyRentBetween(Integer minRent, Integer maxRent);
+   // List<RentContract> findByMonthlyRentBetween(Integer minRent, Integer maxRent);
 
 }

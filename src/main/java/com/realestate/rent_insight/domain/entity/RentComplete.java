@@ -15,8 +15,8 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "rent_contract")
-public class RentContract {
+@Table(name = "rent_complete")
+public class RentComplete {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,7 +86,7 @@ public class RentContract {
      * @param contractType 계약구분 (API의 contractType)
      */
     @Builder
-    public RentContract(LocalDate contractDate, String sggCd, String sggNm, String umdNm, String jibun, String name,
+    public RentComplete(LocalDate contractDate, String sggCd, String sggNm, String umdNm, String jibun, String name,
                         Integer deposit, Integer monthlyRent, Double area, Integer buildYear, Integer floor,
                         String contractTerm, String contractType) {
         this.contractDate = contractDate;

@@ -87,52 +87,52 @@
     </div>
 
     <!-- 2. 검색 결과 리스트 영역 -->
-<!--    <div class="card result-card">-->
-<!--        <div class="card-header bg-white py-3">-->
-<!--            <div class="d-flex justify-content-between align-items-center">-->
-<!--&lt;!&ndash;                <h5 class="mb-0 fw-bold">검색 결과 <span class="text-primary" th:text="${contracts.size()} + '건'">0건</span></h5>&ndash;&gt;-->
-<!--                <button class="btn btn-success btn-sm"><i class="bi bi-file-earmark-excel"></i> 엑셀 다운로드</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="card-body p-0">-->
-<!--            <div class="table-responsive">-->
-<!--                <table class="table table-hover table-striped mb-0 text-center">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th>계약일</th>-->
-<!--                        <th>지역</th>-->
-<!--                        <th>단지명</th>-->
-<!--                        <th>전용면적</th>-->
-<!--                        <th>층</th>-->
-<!--                        <th>보증금(만원)</th>-->
-<!--                        <th>월세(만원)</th>-->
-<!--                        <th>건축년도</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                    <tr th:if="${#lists.isEmpty(contracts)}">-->
-<!--                        <td colspan="8" class="py-5 text-muted">-->
-<!--                            <i class="bi bi-exclamation-circle display-6 d-block mb-3"></i>-->
-<!--                            검색 결과가 없습니다. 조건을 변경해보세요.-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                    <tr th:each="item : ${contracts}">-->
-<!--                        <td th:text="${item.contractDate}">2024-02-01</td>-->
-<!--                        <td>-->
-<!--                            <span th:text="${item.sggNm}">강남구</span>-->
-<!--                            <span th:text="${item.umdNm}" class="text-muted small">역삼동</span>-->
-<!--                        </td>-->
-<!--                        <td th:text="${item.name}" class="text-start fw-bold">개포자이</td>-->
-<!--                        <td th:text="${item.area} + '㎡'">84.9㎡</td>-->
-<!--                        <td th:text="${item.floor} + '층'">15층</td>-->
-<!--                        <td class="price-text" th:text="${#numbers.formatInteger(item.deposit, 0, 'COMMA')}">50,000</td>-->
-<!--                        <td th:text="${item.monthlyRent > 0 ? #numbers.formatInteger(item.monthlyRent, 0, 'COMMA') : '-'}">100</td>-->
-<!--                        <td th:text="${item.buildYear}">2020</td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
-<!--        </div>-->
+    <div class="card result-card">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold">검색 결과 <span class="text-primary" th:text="${rentSearchResult.size()} + '건'">0건</span></h5>
+                <button class="btn btn-success btn-sm"><i class="bi bi-file-earmark-excel"></i> 엑셀 다운로드</button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0 text-center">
+                    <thead>
+                    <tr>
+                        <th>계약일</th>
+                        <th>지역</th>
+                        <th>단지명</th>
+                        <th>전용면적</th>
+                        <th>층</th>
+                        <th>보증금(만원)</th>
+                        <th>월세(만원)</th>
+                        <th>건축년도</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(rentSearchResult)}">
+                        <td colspan="8" class="py-5 text-muted">
+                            <i class="bi bi-exclamation-circle display-6 d-block mb-3"></i>
+                            검색 결과가 없습니다. 조건을 변경해보세요.
+                        </td>
+                    </tr>
+                    <tr th:each="item : ${rentSearchResult}">
+                        <td th:text="${item.contractDate}">2024-02-01</td>
+                        <td>
+                            <span th:text="${item.sggNm}">강남구</span>
+                            <span th:text="${item.umdNm}" class="text-muted small">역삼동</span>
+                        </td>
+                        <td th:text="${item.name}" class="text-start fw-bold">개포자이</td>
+                        <td th:text="${item.area} + '㎡'">84.9㎡</td>
+                        <td th:text="${item.floor} + '층'">15층</td>
+                        <td class="price-text" th:text="${#numbers.formatInteger(item.deposit, 0, 'COMMA')}">50,000</td>
+                        <td th:text="${item.monthlyRent > 0 ? #numbers.formatInteger(item.monthlyRent, 0, 'COMMA') : '-'}">100</td>
+                        <td th:text="${item.buildYear}">2020</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <!-- 페이징 처리 UI (현재는 동작하지 않는 모형) -->
         <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">

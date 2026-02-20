@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.realestate.rent_insight.domain.mapper.RentContractMapper">
+<mapper namespace="com.realestate.rent_insight.domain.mapper.RentCompleteMapper">
 
     <select id="findByComplexConditions"
-            parameterType="com.realestate.rent_insight.dto.RentContractSearchDTO"
-            resultType="com.realestate.rent_insight.domain.entity.RentContract">
+            parameterType="com.realestate.rent_insight.dto.RentCompleteSearchDTO"
+            resultType="com.realestate.rent_insight.domain.entity.RentComplete">
         SELECT
             id,                             -- 계약 고유번호
             contract_date AS contractDate,  -- 계약일
@@ -22,7 +22,7 @@
             contract_term AS contractTerm,  -- 계약 기간
             contract_type AS contractType   -- 계약 종류 (신규/갱신)
         FROM
-            rent_contract
+            rent_complete
         <where>
             <!-- sggNm 대신 sggCode로, sgg_nm 대신 sgg_cd로 비교 -->
             <if test="sggCode != null and sggCode != ''">

@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RentContractSearchDTO {
+public class RentCompleteSearchDTO {
 
     // 시군구 이름 대신 코드로 검색하기 위해  변경
     private String sggCode;     // 시군구 코드 (예: "1111000000")
