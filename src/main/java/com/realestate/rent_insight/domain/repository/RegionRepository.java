@@ -11,11 +11,13 @@ import java.util.List;
 public interface RegionRepository extends JpaRepository<Region, String> {
 
     /**
-     * 특정 상위 코드(parentCode)를 가진 지역 목록을 조회
      * "SELECT * FROM region WHERE parent_code = ?"
+     * 서울특별시에 속한 모든 ㅇㅇ구 코드 다 가져오기
      *
-     * @param parentCode 조회할 상위 지역의 법정동 코드 (예: "1100000000" - 서울특별시 코드)
+     * @param parentCode ("1100000000" - 서울특별시 코드)
      * @return 해당 parentCode를 가진 Region 객체들의 리스트
      */
     List<Region> findByParentCode(String parentCode);
+
+
 }
