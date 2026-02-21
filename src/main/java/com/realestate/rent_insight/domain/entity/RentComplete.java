@@ -50,8 +50,12 @@ public class RentComplete {
     private Integer deposit; // 보증금 (단위: 만원)
 
     // [조회 조건] 월세
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer monthlyRent; // 월세 (단위: 만원)
+
+    // [조회조건 X] 종전 보증금
+    @Column(nullable = true)
+    private Integer preDeposit; // 종전 보증금 (단위: 만원)
 
     // [조회 조건] 전용면적
     @Column(nullable = false)
@@ -69,6 +73,10 @@ public class RentComplete {
     // [조회 조건] 계약구분
     private String contractType; // 계약구분 (예: 신규, 갱신)
 
+    // 갱신요구 사용 유무
+    private String useRRRight; // 사용 or " "
+
+
     /**
      * @param contractDate 계약일 (API의 dealYear, dealMonth, dealDay)
      * @param sggCd 시군구 코드 (API의 sggCd)
@@ -85,9 +93,14 @@ public class RentComplete {
      * @param contractType 계약구분 (API의 contractType)
      */
     @Builder
-    public RentComplete(LocalDate contractDate, String sggCd, String sggNm, String umdNm, String jibun, String name,
-                        Integer deposit, Integer monthlyRent, Double area, Integer buildYear, Integer floor,
-                        String contractTerm, String contractType) {
+    public RentComplete(LocalDate contractDate,
+                        String sggCd, String sggNm,
+                        String umdNm, String jibun,
+                        String name, Integer deposit,
+                        Integer monthlyRent, Integer preDeposit,
+                        Double area, Integer buildYear, Integer floor,
+                        String contractTerm, String contractType,
+                        String useRRRight) {
         this.contractDate = contractDate;
         this.sggCd = sggCd;
         this.sggNm = sggNm;
@@ -96,10 +109,12 @@ public class RentComplete {
         this.name = name;
         this.deposit = deposit;
         this.monthlyRent = monthlyRent;
+        this.preDeposit = preDeposit;
         this.area = area;
         this.buildYear = buildYear;
         this.floor = floor;
         this.contractTerm = contractTerm;
         this.contractType = contractType;
+        this.useRRRight = useRRRight;
     }
 }
