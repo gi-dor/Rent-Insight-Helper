@@ -7,6 +7,7 @@ import com.realestate.rent_insight.dto.ApiRentDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -45,11 +46,24 @@ public class CallApiService {
     @Value("${api.baseUrl}")
     private String baseUrl;
 
-    public void callDataSeoul() {
+    @Scheduled(cron = "0 0 22 * * MON-SAT")
+    public void callDataSeoul(){
+        String dealYmd = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
+        log.info("스케줄러가 실행됩니다. 대상 월: {}", dealYmd);
+        callDataSeoulPast(dealYmd);
+    }
+
+
+    public void callDataSeoulPast(String dealYmd) {
+
+        // 최종 결과를 집계하기 위한 카운터 변수
+        int totalDeletedCount = 0;
+        int totalInsertedCount = 0;
+
 
         // 데이터 부르기 전에 준비 재료들
         // 1. DEAL_YMD 부터
-        String dealYmd = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
+//        String dealYmd = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
         log.info("실거래가 데이터 수집을 시작합니다 대상 : 월 {} ",dealYmd);
 
         // 2. LAWD_CD 코드 5자리 가져오기 - DB에 있는 25개 ㅇㅇ구 Ex_) 종로구 용산구 각자 코드 10자리 가져와서 자르기
@@ -58,8 +72,8 @@ public class CallApiService {
 
         // 3. 가져 오려는 연도의 월의 해당 자료 삭제 - 매일 가져올껀데 그때마다 중복 비교해서 하면 시간 오래걸릴거같음
         // 그래서 걍 삭제 할꺼임 ㅋㅋ  Ex )  2026.02.21 에 데이터 가져왔느데 2026.02.22에 또 가져오는데 중복 비교하기싫음
-        log.info("기존 보유한 월{} 데이터 삭제 ",dealYmd);
-        rentCompleteRepository.deleteAllByDealYmd(dealYmd);
+        totalDeletedCount = rentCompleteRepository.deleteAllByDealYmd(dealYmd);
+        log.info("기존 {}월 데이터 {}건을 삭제했습니다.", dealYmd, totalDeletedCount);
 
         // 호출위해서 RestTemplate- 외부와 통신 // 걍 API 호출도구라고 생각하면됨
         // 비동기 방식이 아니라 응답을 받을때 까지 기다리는 동기 방식이라고함
@@ -95,7 +109,7 @@ public class CallApiService {
 
                 // 호출 해서 Response 문자열로 받기
                 String xmlResponse = restTemplate.getForObject(uri, String.class);
-                log.info("API Response for {}: {}", lawdCd, xmlResponse);
+//                log.info("API Response for {}: {}", lawdCd, xmlResponse);
 
                 // 객체로 변환
                 JsonNode parentNode = objectMapper.readTree(xmlResponse);
@@ -133,7 +147,10 @@ public class CallApiService {
                     }
 
                     rentCompleteRepository.saveAll(rentCompleteEntity);
+
+                    totalInsertedCount += rentCompleteEntity.size();
                     log.info(">> {} 건의 데이터를 DB에 저장했습니다.", rentCompleteEntity.size());
+
                 } else {
                     // 이 경우는 위에서 continue 처리되어 사실상 도달하기 어려움
                     log.info(">> 파싱된 데이터가 없습니다.");
@@ -146,7 +163,9 @@ public class CallApiService {
                 continue;
             }
         }
-        log.info("======  데이터 수집 완료. {}  ========", LocalDate.now());
+        log.info("======  데이터 수집 완료. 진행날짜 : {}  ========", LocalDate.now());
+        log.info("총 삭제된 데이터: {}건", totalDeletedCount);
+        log.info("총 저장된 데이터: {}건", totalInsertedCount);
     }
 
 

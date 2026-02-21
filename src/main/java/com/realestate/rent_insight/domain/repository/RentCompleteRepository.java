@@ -23,5 +23,5 @@ public interface RentCompleteRepository extends JpaRepository<RentComplete, Long
 
     @Modifying  // INSERT , UPDATE , DELETE 에서 사용하는 어노테이션이라고함
     @Query("DELETE FROM RentComplete rc WHERE FUNCTION('DATE_FORMAT', rc.contractDate, '%Y%m') = :dealYmd")
-    void deleteAllByDealYmd(@Param("dealYmd") String dealYmd);
+    int deleteAllByDealYmd(@Param("dealYmd") String dealYmd);
 }
