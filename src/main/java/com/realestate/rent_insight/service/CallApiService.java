@@ -1,7 +1,9 @@
 package com.realestate.rent_insight.service;
 
+import com.realestate.rent_insight.domain.entity.DataUpdateLog;
 import com.realestate.rent_insight.domain.entity.Region;
 import com.realestate.rent_insight.domain.entity.RentComplete;
+import com.realestate.rent_insight.domain.repository.DataUpdateLogRepository;
 import com.realestate.rent_insight.domain.repository.RentCompleteRepository;
 import com.realestate.rent_insight.dto.ApiRentDTO;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import tools.jackson.dataformat.xml.XmlMapper;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +42,7 @@ public class CallApiService {
 
     private final RegionService regionService;
     private final RentCompleteRepository rentCompleteRepository;
+    private final DataUpdateLogRepository dataUpdateLogRepository;
 
     @Value("${api.serviceKey}")
     private String serviceKey;
@@ -160,12 +164,24 @@ public class CallApiService {
 
             } catch (Exception e) {
                 log.error(">>>> 오류 발생 {} , {}: ", sigungu.getName() , e.getMessage());
+                DataUpdateLog errorLog = DataUpdateLog.builder()
+                        .completionTime(LocalDateTime.now())
+                        .status("FAIL")
+                        .build();
+                dataUpdateLogRepository.save(errorLog);
                 continue;
             }
         }
         log.info("======  데이터 수집 완료. 진행날짜 : {}  ========", LocalDate.now());
         log.info("총 삭제된 데이터: {}건", totalDeletedCount);
         log.info("총 저장된 데이터: {}건", totalInsertedCount);
+        DataUpdateLog successLog = DataUpdateLog.builder()
+                .completionTime(LocalDateTime.now())
+                .status("SUCCESS")
+                .totalDeletedCount(totalDeletedCount)
+                .totalInsertedCount(totalInsertedCount)
+                .build();
+        dataUpdateLogRepository.save(successLog);
     }
 
 
