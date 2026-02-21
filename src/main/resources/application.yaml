@@ -10,11 +10,11 @@ spring:
   # SQL 초기화 설정
   sql:
     init:
-      # data.sql 스크립트의 실행 시점을 설정합니다.
+      # data_.sql 스크립트의 실행 시점을 설정합니다.
       # always: 내장 데이터베이스가 아니더라도(MySQL 등) 항상 스크립트를 실행합니다.
       mode: always
 
-      #역할: MySQL과 같은 실제 데이터베이스를 사용할 때도 data.sql 파일을 항상 실행하도록 Spring Boot에게 명시적으로 지시합니다.
+      #역할: MySQL과 같은 실제 데이터베이스를 사용할 때도 data_.sql 파일을 항상 실행하도록 Spring Boot에게 명시적으로 지시합니다.
 
       #왜 필요했나: Spring Boot는 기본적으로 MySQL 같은 '운영용' DB에서는 data.sql을
       #자동으로 실행하지 않는 '안전제일' 정책을 가지고 있습니다. 이 설정을 통해 "개발 환경에서는 항상 실행해도 괜찮아!"라고 알려주는 것입니다.
@@ -27,17 +27,17 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-    # JPA의 테이블 생성(ddl-auto)이 완료된 후에, data.sql을 실행하도록 순서를 강제합니다.
+    # JPA의 테이블 생성(ddl-auto)이 완료된 후에, data_.sql을 실행하도록 순서를 강제합니다.
     defer-datasource-initialization: true
 
-    #역할: JPA가 테이블을 생성하는 작업(ddl-auto)을 먼저 완료한 후에 data.sql을 실행하도록 순서를 강제합니다.
+    #역할: JPA가 테이블을 생성하는 작업(ddl-auto)을 먼저 완료한 후에 data_.sql을 실행하도록 순서를 강제합니다.
 
-    #왜 필요했나: 이 설정이 없으면, 때때로 data.sql이 테이블이 아직 만들어지기 전에 실행되려 하거나, JPA와 data.sql의 실행 순서가
+    #왜 필요했나: 이 설정이 없으면, 때때로 data_.sql이 테이블이 아직 만들어지기 전에 실행되려 하거나, JPA와 data.sql의 실행 순서가
     #꼬여 데이터가 들어가지 않는 문제가 발생할 수 있습니다.
 
 # MyBatis 설정
