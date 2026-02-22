@@ -26,7 +26,7 @@
         <where>
             <!-- sggNm 대신 sggCode로, sgg_nm 대신 sgg_cd로 비교 -->
             <if test="sggCode != null and sggCode != ''">
-                AND sgg_cd = #{sggCode}
+                AND sgg_cd = SUBSTRING(#{sggCode}, 1, 5)
             </if>
             <!-- umdNm 대신 umdName으로, umd_nm으로 비교 -->
             <if test="umdName != null and umdName != ''">
