@@ -13,7 +13,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // 이메일로 회원 찾기 (로그인할 때 검색해서)
     // SQL: select * from member where email = ?
-    Member findByEmail(String email);
+    Optional<Member> findByEmail(String email);
     // Optional<Member> findByEmail(String email);
     // Optional<Member> 선언하고 데이터 없을떄 NullPointerException 방지 + 서비스 계층에서 orElseThrow() 로 예외처리 한다는데
 

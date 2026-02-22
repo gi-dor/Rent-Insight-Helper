@@ -90,40 +90,42 @@ public class MemberController {
         return "login"; // templates/login.html
     }
 
-    //
-    @PostMapping("/login")
-    public String loginComplete(@Valid @ModelAttribute MemberDTO memberDTO,BindingResult bindingResult,HttpServletRequest request) {
-        // DTO에서 정의한 입력값 검증하기
-        if (bindingResult.hasErrors()) {
-            return "login"; // login.html
-        }
 
-        // memberService에서 login 메서드 호출
-        Member loginMember = memberService.login(memberDTO.getEmail(), memberDTO.getPassword());
+    // 시큐리티로 인해 폐업
+//    @PostMapping("/login")
+//    public String loginComplete(@Valid @ModelAttribute MemberDTO memberDTO,BindingResult bindingResult,HttpServletRequest request) {
+//        // DTO에서 정의한 입력값 검증하기
+//        if (bindingResult.hasErrors()) {
+//            return "login"; // login.html
+//        }
+//
+//        // memberService에서 login 메서드 호출
+//        Member loginMember = memberService.login(memberDTO.getEmail(), memberDTO.getPassword());
+//
+//
+//        // 로그인 실패 처리 - 아이디 공백 , 비밀번호 틀릴경우
+//        if (loginMember == null) {
+//            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+//            log.warn("로그인 실패 : {} ,{}",memberDTO.getEmail(),memberDTO.getPassword());
+//            return "login";
+//        }
+//
+//        // 로그인 성공 (세션 생성)
+//        HttpSession session = request.getSession();
+//        session.setAttribute("loginMember", loginMember);
+//
+//        return "redirect:/";
+//    }
 
-
-        // 로그인 실패 처리 - 아이디 공백 , 비밀번호 틀릴경우
-        if (loginMember == null) {
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            log.warn("로그인 실패 : {} ,{}",memberDTO.getEmail(),memberDTO.getPassword());
-            return "login";
-        }
-
-        // 로그인 성공 (세션 생성)
-        HttpSession session = request.getSession();
-        session.setAttribute("loginMember", loginMember);
-
-        return "redirect:/";
-    }
-
-    // 로그아웃
-    @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return "redirect:/";
-
-    }
+    // 시큐리티로 인해 폐업
+//    // 로그아웃
+//    @PostMapping("/logout")
+//    public String logout(HttpServletRequest request) {
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            session.invalidate();
+//        }
+//        return "redirect:/";
+//
+//    }
 }

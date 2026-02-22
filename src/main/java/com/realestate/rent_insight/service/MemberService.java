@@ -4,15 +4,21 @@ import com.realestate.rent_insight.common.exception.DuplicateFieldException;
 import com.realestate.rent_insight.domain.entity.MemberRole;
 import com.realestate.rent_insight.domain.entity.Member;
 import com.realestate.rent_insight.domain.repository.MemberRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor // final이 붙은 필드(memberRepository, passwordEncoder)를 위한 생성자를 자동으로 만듬
 @Transactional(readOnly = true) // 기본적으로 모든 메서드는 읽기 전용으로 설정하여 성능을 최적화
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     // 데이터베이스와 대화하기 위한 MemberRepository(JPA)
     private final MemberRepository memberRepository;
@@ -57,6 +63,41 @@ public class MemberService {
         return savedMember.getId();
     }
 
+    @NonNull
+    @Override
+    public UserDetails loadUserByUsername(@NonNull String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("해당하는 이메일을 찾을 수 없습니다 : " + email));
+    }
+
+//    @NonNull
+//    @Override
+//    public UserDetails loadUserByUsername(@NonNull String email) {
+//        Member member =  memberRepository.findByEmail(email)
+//                .orElseThrow(() -> new UsernameNotFoundException("해당하는 이메일을 찾을 수 없습니다 : " + email));
+//        return member;
+//    }
+
+
+    /**
+     * 이메일 중복 체크
+     */
+    private void validateDuplicateEmail(String email) {
+        if (memberRepository.existsByEmail(email)) {
+            throw new DuplicateFieldException("email","이미 존재하는 회원(이메일)입니다.");
+        }
+    }
+
+    /**
+     * 닉네임 중복 체크
+     */
+    private void validateDuplicateNickName(String nickname) {
+        if (memberRepository.existsByNickname(nickname)) {
+            throw new DuplicateFieldException("nickname","이미 존재하는 닉네임 입니다.");
+        }
+    }
+
+
 
     /*
     // =================================================================================================
@@ -81,36 +122,41 @@ public class MemberService {
     */
 
 
-    // =================================================================================================
-    // [신규] 로그인 - 암호화된 비밀번호 비교
-    // =================================================================================================
-    /**
-     * 로그인을 처리하는 새로운 메서드입니다. 암호화된 비밀번호를 안전하게 비교합니다.
-     *
-     * @param email 사용자가 로그인 폼에 입력한 이메일
-     * @param password 사용자가 입력한 비밀번호 (날것의 비밀번호)
-     * @return 로그인에 성공하면 회원(Member) 정보를 통째로 반환하고, 실패하면 null을 반환합니다.
-     */
-    public Member login(String email, String password) {
-        // 사용자가 입력한 이메일로 데이터베이스에서 회원을 찾음
-        Member member =  memberRepository.findByEmail(email);
 
-        // 만약 그런 이메일을 가진 회원이 없다면, 당연히 로그인 실패이므로 null을 반환하고 끝냄
-        if(member == null) {
-            return null;
+
+        // =================================================================================================
+        // [기존] 로그인2 - 암호화된 비밀번호 비교 ---> 스프링 시큐리티로 인해 사용하지 않는다
+        // =================================================================================================
+        /**
+         * 로그인을 처리하는 새로운 메서드입니다. 암호화된 비밀번호를 안전하게 비교합니다.
+         *
+         * @param email 사용자가 로그인 폼에 입력한 이메일
+         * @param password 사용자가 입력한 비밀번호 (날것의 비밀번호)
+         * @return 로그인에 성공하면 회원(Member) 정보를 통째로 반환하고, 실패하면 null을 반환합니다.
+         */
+        /*
+        public Member login(String email, String password) {
+            // 사용자가 입력한 이메일로 데이터베이스에서 회원을 찾음
+            Optional<Member> member =  memberRepository.findByEmail(email);
+
+
+            if (member.isEmpty()) {
+                // 회원이 없으면, 당연히 로그인 실패이므로 null을 반환하고 끝냅니다.
+                return null;
+            }
+
+            Member memberV2 = member.get();
+
+            if(!passwordEncoder.matches(password, memberV2.getPassword())) {
+                // 만약 짝이 맞지 않는다면, 비밀번호가 틀린 것이므로 null을 반환하고 끝낸다
+                return null;
+            }
+
+            // 이메일도 존재하고, 비밀번호도 짝이 맞는다면, 로그인 성공
+            // 찾았던 회원 정보를 통째로 반환합
+            return memberV2;
         }
-
-        // 데이터베이스에 저장된 암호문(member.getPassword())과 사용자가 방금 입력한 날것의 비밀번호(password)가 서로 짝이 맞는지 확인
-        // passwordEncoder.matches()가 작업을 대신 해줌 절대로 암호문을 풀어서 비교하지 않는다
-        if(!passwordEncoder.matches(password, member.getPassword())) {
-            // 만약 짝이 맞지 않는다면, 비밀번호가 틀린 것이므로 null을 반환하고 끝낸다
-            return null;
-        }
-
-        // 이메일도 존재하고, 비밀번호도 짝이 맞는다면, 로그인 성공
-        // 찾았던 회원 정보를 통째로 반환합
-        return member;
-    }
+        */
 
 
     /*
@@ -133,21 +179,5 @@ public class MemberService {
     */
 
 
-    /**
-     * 이메일 중복 체크
-     */
-    private void validateDuplicateEmail(String email) {
-        if (memberRepository.existsByEmail(email)) {
-            throw new DuplicateFieldException("email","이미 존재하는 회원(이메일)입니다.");
-        }
-    }
 
-    /**
-     * 닉네임 중복 체크
-     */
-    private void validateDuplicateNickName(String nickname) {
-        if (memberRepository.existsByNickname(nickname)) {
-            throw new DuplicateFieldException("nickname","이미 존재하는 닉네임 입니다.");
-        }
-    }
 }
