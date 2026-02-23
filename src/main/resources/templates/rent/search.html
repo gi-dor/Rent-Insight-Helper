@@ -192,6 +192,11 @@
                 }
             });
         });
+        // 만약 값이 있다면, change 이벤트를 강제로 실행
+        const existentSggCode = $('#sgg-select').val(); // select id="sgg-select 에 <option> 에 value
+        if (existentSggCode) {
+            $('#sgg-select').trigger('change'); // 이벤트 강제 발생
+        }
     });
 </script>
 
