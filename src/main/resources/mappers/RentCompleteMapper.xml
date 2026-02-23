@@ -24,13 +24,11 @@
         FROM
             rent_complete
         <where>
-            <!-- sggNm 대신 sggCode로, sgg_nm 대신 sgg_cd로 비교 -->
-            <if test="sggCode != null and sggCode != ''">
-                AND sgg_cd = SUBSTRING(#{sggCode}, 1, 5)
+            <if test="sggCd != null and sggCd != ''">
+                AND sgg_cd = SUBSTRING(#{sggCd}, 1, 5)
             </if>
-            <!-- umdNm 대신 umdName으로, umd_nm으로 비교 -->
-            <if test="umdName != null and umdName != ''">
-                AND umd_nm = #{umdName}
+            <if test="umdNm != null and umdNm != ''">
+                AND umd_nm = #{umdNm}
             </if>
             <if test="name != null and name != ''">
                 AND name LIKE CONCAT('%', #{name}, '%')

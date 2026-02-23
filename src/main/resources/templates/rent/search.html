@@ -49,14 +49,14 @@
                     <!-- 지역 검색 -->
                     <div class="col-md-4">
                         <label for="sgg-select" class="form-label fw-bold small">지역 (시군구)</label>
-                        <select id="sgg-select" class="form-select" th:field="*{sggCode}">
+                        <select id="sgg-select" class="form-select" th:field="*{sggCd}">
                             <option value="">-- 시군구 선택 --</option>
                             <option th:each="sgg : ${sigunguList}" th:value="${sgg.code}" th:text="${sgg.name}"></option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label for="umd-select" class="form-label fw-bold small">법정동</label>
-                        <select id="umd-select" class="form-select" th:field="*{umdName}">
+                        <select id="umd-select" class="form-select" th:field="*{umdNm}">
                             <option value="">-- 시군구를 먼저 선택하세요 --</option>
                         </select>
                     </div>
