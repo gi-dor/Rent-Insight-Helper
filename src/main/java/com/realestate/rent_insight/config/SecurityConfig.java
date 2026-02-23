@@ -35,6 +35,12 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
+    public LoginFailHandler loginFailHandler() {
+        return new LoginFailHandler();
+    }
+
     /**
      * @Bean: Spring Security의 핵심 보안 설정을 구성하는 SecurityFilterChain을 Bean으로 등록합니다.
      *
@@ -58,6 +64,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/members/login")
                         .loginProcessingUrl("/members/login")
+                        .failureHandler(loginFailHandler())
                         .usernameParameter("email")
                         .defaultSuccessUrl("/", true) // 로그인 성공 시 항상 메인 페이지로 이동
                         .permitAll() // 로그인 페이지 자체는 누구나 접근 가능

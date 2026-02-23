@@ -33,9 +33,9 @@
 
             <!-- 일반 로그인 폼 -->
             <form th:action="@{/members/login}" method="post" th:object="${memberDTO}">
-                <!-- 로그인 실패 시 글로벌 에러 메시지 표시 -->
-                <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
-                    <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 에러 메시지</p>
+                <!-- 로그인 실패 시 에러 메시지 표시 -->
+                <div th:if="${param.error}" class="alert alert-danger" th:text="${param.error}" role="alert">
+                    에러 메시지 표시
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">이메일</label>
