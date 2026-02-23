@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>실거래가 상세 조회 - Rent Insight</title>
-    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body { background-color: #f8f9fa; }
@@ -15,11 +13,12 @@
         .table th { background-color: #f1f3f5; font-weight: 600; font-size: 0.9rem; }
         .table td { vertical-align: middle; font-size: 0.9rem; }
         .price-text { font-weight: bold; color: #0d6efd; }
+        .pagination .page-item.active .page-link { z-index: 1; }
+        .pagination .page-item.disabled .page-link { background-color: #e9ecef; }
     </style>
 </head>
 <body>
 
-<!-- 상단 네비게이션 바 (공통) -->
 <nav th:replace="~{common/navbar :: navbar}"></nav>
 
 <br>
@@ -27,26 +26,16 @@
 <div class="container mb-5">
     <h3 class="fw-bold mb-4"><i class="bi bi-search"></i> 실거래가 상세 조회</h3>
 
-    <!-- th:if="${lastLog != null}" : 컨트롤러가 'lastLog'를 모델에 담아줬을 때만, 이 div 태그를 화면에 보여줍니다. -->
     <div th:if="${lastLog != null}" style="text-align: right; color: grey; font-size: 0.85em;">
         <span> 최신 데이터 업데이트 시간 : </span>
-        <!--
-            #temporals.format() : Thymeleaf가 제공하는 날짜 포맷팅
-            'lastLog'(LocalDateTime 객체)를 'yyyy년 MM월 dd일 HH시 mm분' 형식의 문자열로 변환
-        -->
         <span th:text="${#temporals.format(lastLog, 'yyyy년 MM월 dd일 HH시 mm분')}"></span>
     </div>
-
-
-    <!-- ... 이하 검색 폼, 테이블 등 ... -->
 
     <!-- 1. 검색 필터 영역 -->
     <div class="card search-card mb-4">
         <div class="card-body p-4">
             <form action="/rent/search" method="get" th:object="${searchDto}">
                 <div class="row g-3">
-
-                    <!-- 지역 검색 -->
                     <div class="col-md-4">
                         <label for="sgg-select" class="form-label fw-bold small">지역 (시군구)</label>
                         <select id="sgg-select" class="form-select" th:field="*{sggCd}">
@@ -64,10 +53,7 @@
                         <label class="form-label fw-bold small">건물명</label>
                         <input type="text" class="form-control" th:field="*{name}" placeholder="아파트/오피스텔 이름">
                     </div>
-
                     <hr class="my-4 text-muted">
-
-                    <!-- 보증금 범위 -->
                     <div class="col-md-6">
                         <label class="form-label fw-bold small"><i class="bi bi-coin"></i> 보증금 범위 (만원)</label>
                         <div class="input-group">
@@ -76,8 +62,6 @@
                             <input type="number" class="form-control" th:field="*{maxDeposit}" placeholder="최대">
                         </div>
                     </div>
-
-                    <!-- 월세 범위 -->
                     <div class="col-md-6">
                         <label class="form-label fw-bold small"><i class="bi bi-cash-stack"></i> 월세 범위 (만원)</label>
                         <div class="input-group">
@@ -86,8 +70,6 @@
                             <input type="number" class="form-control" th:field="*{maxRent}" placeholder="최대">
                         </div>
                     </div>
-
-                    <!-- 검색 버튼 -->
                     <div class="col-12 text-end mt-4">
                         <a href="/rent/search" class="btn btn-outline-secondary me-2">초기화</a>
                         <button type="submit" class="btn btn-primary px-4 fw-bold">
@@ -103,7 +85,7 @@
     <div class="card result-card">
         <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0 fw-bold">검색 결과 <span class="text-primary" th:text="${rentSearchResult.size()} + '건'">0건</span></h5>
+                <h5 class="mb-0 fw-bold">검색 결과 <span class="text-primary" th:text="${rentSearchResult.rentPaginationDTO.totalRows} + '건'">0건</span></h5>
                 <button class="btn btn-success btn-sm"><i class="bi bi-file-earmark-excel"></i> 엑셀 다운로드</button>
             </div>
         </div>
@@ -123,13 +105,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${#lists.isEmpty(rentSearchResult)}">
+                    <tr th:if="${#lists.isEmpty(rentSearchResult.list)}">
                         <td colspan="8" class="py-5 text-muted">
                             <i class="bi bi-exclamation-circle display-6 d-block mb-3"></i>
                             검색 결과가 없습니다. 조건을 변경해보세요.
                         </td>
                     </tr>
-                    <tr th:each="item : ${rentSearchResult}">
+                    <tr th:each="item : ${rentSearchResult.list}">
                         <td th:text="${item.contractDate}">2024-02-01</td>
                         <td>
                             <span th:text="${item.sggNm}">강남구</span>
@@ -147,72 +129,64 @@
             </div>
         </div>
 
-        <!-- 페이징 처리 UI (현재는 동작하지 않는 모형) -->
-        <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
-            <ul class="pagination">
-                <!-- '이전' 버튼 (모형) -->
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-
-                <!-- 페이지 번호 (모형) -->
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-
-                <!-- '다음' 버튼 (모형) -->
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
+        <!-- [최종 수정] 페이지네이션 UI -->
+        <div class="card-footer bg-white" th:if="${rentSearchResult.rentPaginationDTO.totalRows > 0}">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mb-0">
+                    <!-- '처음' 버튼 -->
+                    <li class="page-item" th:classappend="${rentSearchResult.rentPaginationDTO.first} ? 'disabled'">
+                        <a th:if="${!rentSearchResult.rentPaginationDTO.first}" class="page-link" th:href="@{/rent/search(page=1, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}">&laquo;</a>
+                        <span th:if="${rentSearchResult.rentPaginationDTO.first}" class="page-link">&laquo;</span>
+                    </li>
+                    <!-- '이전' 버튼 -->
+                    <li class="page-item" th:classappend="${rentSearchResult.rentPaginationDTO.currentPage == 1} ? 'disabled'">
+                        <a th:if="${rentSearchResult.rentPaginationDTO.currentPage > 1}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.currentPage - 1}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}">&lt;</a>
+                        <span th:if="${rentSearchResult.rentPaginationDTO.currentPage == 1}" class="page-link">&lt;</span>
+                    </li>
+                    <!-- 페이지 번호 버튼 -->
+                    <li th:each="pageNumber : ${#numbers.sequence(rentSearchResult.rentPaginationDTO.beginPage, rentSearchResult.rentPaginationDTO.endPage)}" class="page-item" th:classappend="${pageNumber == rentSearchResult.rentPaginationDTO.currentPage} ? 'active'">
+                        <a class="page-link" th:href="@{/rent/search(page=${pageNumber}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}" th:text="${pageNumber}">1</a>
+                    </li>
+                    <!-- '다음' 버튼 -->
+                    <li class="page-item" th:classappend="${rentSearchResult.rentPaginationDTO.currentPage == rentSearchResult.rentPaginationDTO.totalPages} ? 'disabled'">
+                        <a th:if="${rentSearchResult.rentPaginationDTO.currentPage < rentSearchResult.rentPaginationDTO.totalPages}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.currentPage + 1}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}">&gt;</a>
+                        <span th:if="${rentSearchResult.rentPaginationDTO.currentPage == rentSearchResult.rentPaginationDTO.totalPages}" class="page-link">&gt;</span>
+                    </li>
+                    <!-- '마지막' 버튼 -->
+                    <li class="page-item" th:classappend="${rentSearchResult.rentPaginationDTO.last} ? 'disabled'">
+                        <a th:if="${!rentSearchResult.rentPaginationDTO.last}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.totalPages}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}">&raquo;</a>
+                        <span th:if="${rentSearchResult.rentPaginationDTO.last}" class="page-link">&raquo;</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
 
 <footer th:replace="~{common/footer :: footer}"></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 <script>
-    // 페이지가 완전히 로드된 후에, 이 안의 코드를 실행
     $(document).ready(function() {
-        // 시군구 드롭다운(#sgg-select)의 값이 변경될 때마다, 이 안의 함수를 실행
         $('#sgg-select').on('change', function() {
-            // 선택된 시군구의 코드 값을 가져옵니다. (예: "1111000000")
             const selectedSigunguCode = $(this).val();
-            const dongSelect = $('#umd-select'); // 법정동 드롭다운
-
-            // 법정동 드롭다운의 기존 목록을 초기화
+            const dongSelect = $('#umd-select');
             dongSelect.html('<option value="">-- 법정동 선택 --</option>');
-            // 만약 "-- 시군구 선택 --"을 다시 선택하면(값이 비어있으면), 아무것도 하지 않고 종료
             if (!selectedSigunguCode) {
                 dongSelect.html('<option value="">-- 시군구를 먼저 선택하세요 --</option>');
                 return;
             }
-            // jQuery의 ajax 함수를 사용하여, 우리 백엔드 API를 호출
             $.ajax({
-                url: '/api/regions/dong', // 만든 ㅇㅇ동 목록API
+                url: '/api/regions/dong',
                 type: 'GET',
-                data: { sigunguCode: selectedSigunguCode }, // ?sigunguCode=1111000000 형식으로 요청
+                data: { sggCd: selectedSigunguCode },
                 success: function(dongList) {
-                    // API 호출이 성공하면, 받아온 동 목록(dongList)으로 드롭다운을 채dna
                     dongList.forEach(function(dong) {
-                        // 새로운 <option> 태그를 만들어서 추가
-                        // value에는 동 이름을, 텍스트에도 동 이름을 넣는다.
                         dongSelect.append(`<option value="${dong.name}">${dong.name}</option>`);
                     });
                 },
                 error: function(error) {
-                    // API 호출이 실패하면, 에러 메시지를 표시
                     console.error('Error fetching dong list:', error);
                     dongSelect.html('<option value="">동 목록을 불러오는데 실패했습니다.</option>');
                 }

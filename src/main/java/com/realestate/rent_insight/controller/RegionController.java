@@ -39,7 +39,7 @@ public class RegionController {
      * @return 법정동 목록 (JSON 형식)
      */
     @GetMapping("/dong")
-    public ResponseEntity<List<Region>> getDongList(@RequestParam("sigunguCode") String sigunguCode) {
+    public ResponseEntity<List<Region>> getDongList(@RequestParam("sggCd") String sigunguCode) {
         List<Region> dongList = regionService.getDongList(sigunguCode);
         return ResponseEntity.ok(dongList);
     }
