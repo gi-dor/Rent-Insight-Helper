@@ -4,7 +4,6 @@
 <mapper namespace="com.realestate.rent_insight.domain.mapper.RentCompleteMapper">
 
     <select id="findByComplexConditions"
-            parameterType="com.realestate.rent_insight.dto.RentCompleteSearchDTO"
             resultType="com.realestate.rent_insight.domain.entity.RentComplete">
         SELECT
             id,                             -- 계약 고유번호
@@ -23,24 +22,35 @@
             contract_type AS contractType   -- 계약 종류 (신규/갱신)
         FROM
             rent_complete
+        <include refid="whereCondition"></include>
+        ORDER BY contract_date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <sql id="whereCondition">
         <where>
-            <if test="sggCd != null and sggCd != ''">
-                AND sgg_cd = SUBSTRING(#{sggCd}, 1, 5)
+            <if test="searchDto.sggCd != null and searchDto.sggCd != ''">
+                AND sgg_cd = SUBSTRING(#{searchDto.sggCd}, 1, 5)
             </if>
-            <if test="umdNm != null and umdNm != ''">
-                AND umd_nm = #{umdNm}
+            <if test="searchDto.umdNm != null and searchDto.umdNm != ''">
+                AND umd_nm = #{searchDto.umdNm}
             </if>
-            <if test="name != null and name != ''">
-                AND name LIKE CONCAT('%', #{name}, '%')
+            <if test="searchDto.name != null and searchDto.name != ''">
+                AND name LIKE CONCAT('%', #{searchDto.name}, '%')
             </if>
-            <if test="minDeposit != null and maxDeposit != null">
-                AND deposit BETWEEN #{minDeposit} AND #{maxDeposit}
+            <if test="searchDto.minDeposit != null and searchDto.maxDeposit != null">
+                AND deposit BETWEEN #{searchDto.minDeposit} AND #{searchDto.maxDeposit}
             </if>
-            <if test="minRent != null and maxRent != null">
-                AND monthly_rent BETWEEN #{minRent} AND #{maxRent}
+            <if test="searchDto.minRent != null and searchDto.maxRent != null">
+                AND monthly_rent BETWEEN #{searchDto.minRent} AND #{searchDto.maxRent}
             </if>
         </where>
-        ORDER BY contract_date DESC
+    </sql>
+
+    <select id="countByComplexConditions" resultType="int">
+        SELECT COUNT(*)
+        FROM rent_complete
+        <include refid="whereCondition" />
     </select>
 
 </mapper>

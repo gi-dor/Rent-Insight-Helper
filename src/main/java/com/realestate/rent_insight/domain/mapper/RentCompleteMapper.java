@@ -3,6 +3,8 @@ package com.realestate.rent_insight.domain.mapper;
 import com.realestate.rent_insight.domain.entity.RentComplete;
 import com.realestate.rent_insight.dto.RentCompleteSearchDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -11,9 +13,12 @@ import java.util.List;
 @Mapper
 public interface RentCompleteMapper {
 
-    /**
-     * @param searchDto 사용자가 입력한 검색 조건들이 담긴 DTO
-     * @return 조건에 맞는 여러 계약 목록
-     */
-    List<RentComplete> findByComplexConditions(RentCompleteSearchDTO searchDto);
+    List<RentComplete> findByComplexConditions(
+            @Param("searchDto") RentCompleteSearchDTO searchDto,
+            @Param("limit") int limit,
+            @Param("offset") int offset);
+
+
+    int countByComplexConditions(@Param("searchDto") RentCompleteSearchDTO searchDto);
 }
+
