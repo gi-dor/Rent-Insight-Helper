@@ -26,4 +26,6 @@ public class RentCompleteSearchDTO {
     private Integer minRent = 0;    // 최소 월세 (단위: 만원)
     private Integer maxRent = 0;    // 최대 월세 (단위: 만원)
 
+    private String areaRange;    // 평형 미터제곱
+
 }

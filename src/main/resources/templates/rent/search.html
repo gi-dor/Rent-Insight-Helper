@@ -36,6 +36,34 @@
         <div class="card-body p-4">
             <form action="/rent/search" method="get" th:object="${searchDto}">
                 <div class="row g-3">
+
+                    <!-- 전용면적 필터 버튼식  -->
+                    <div class="col-12 mb-2">
+                        <label class="form-label fw-bold small"><i class="bi bi-arrows-angle-expand"></i> 전용면적 (㎡)</label>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input type="radio" class="btn-check" name="areaRange" id="areaAll" value="" th:field="*{areaRange}">
+                            <label class="btn btn-outline-primary btn-sm rounded-pill px-3" for="areaAll">전체</label>
+
+                            <input type="radio" class="btn-check" name="areaRange" id="area1" value="UNDER_33" th:field="*{areaRange}">
+                            <label class="btn btn-outline-primary btn-sm rounded-pill px-3" for="area1">~ 33㎡ (약 10평 미만)</label>
+
+                            <input type="radio" class="btn-check" name="areaRange" id="area2" value="BETWEEN_34_52" th:field="*{areaRange}">
+                            <label class="btn btn-outline-primary btn-sm rounded-pill px-3" for="area2">34㎡ ~ 52㎡ (약 10평 ~ 15평)</label>
+
+                            <input type="radio" class="btn-check" name="areaRange" id="area3" value="BETWEEN_53_66" th:field="*{areaRange}">
+                            <label class="btn btn-outline-primary btn-sm rounded-pill px-3" for="area3">53 ~ 66㎡ (약 16~20평)</label>
+
+                            <input type="radio" class="btn-check" name="areaRange" id="area4" value="BETWEEN_66_99" th:field="*{areaRange}">
+                            <label class="btn btn-outline-primary btn-sm rounded-pill px-3" for="area4">66 ~ 99㎡ (약 20~30평)</label>
+
+                            <input type="radio" class="btn-check" name="areaRange" id="area5" value="OVER_99" th:field="*{areaRange}">
+                            <label class="btn btn-outline-primary btn-sm rounded-pill px-3" for="area5">99㎡ ~ (약 30평 이상)</label>
+                        </div>
+                    </div>
+
+                    <hr class="my-2 text-muted">
+
+
                     <div class="col-md-4">
                         <label for="sgg-select" class="form-label fw-bold small">지역 (시군구)</label>
                         <select id="sgg-select" class="form-select" th:field="*{sggCd}">
@@ -135,26 +163,26 @@
                 <ul class="pagination justify-content-center mb-0">
                     <!-- '처음' 버튼 -->
                     <li class="page-item" th:classappend="${rentSearchResult.rentPaginationDTO.first} ? 'disabled'">
-                        <a th:if="${!rentSearchResult.rentPaginationDTO.first}" class="page-link" th:href="@{/rent/search(page=1, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}">&laquo;</a>
+                        <a th:if="${!rentSearchResult.rentPaginationDTO.first}" class="page-link" th:href="@{/rent/search(page=1, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent}, areaRange=${searchDto.areaRange})}">&laquo;</a>
                         <span th:if="${rentSearchResult.rentPaginationDTO.first}" class="page-link">&laquo;</span>
                     </li>
                     <!-- '이전' 버튼 -->
                     <li class="page-item" th:classappend="${rentSearchResult.rentPaginationDTO.currentPage == 1} ? 'disabled'">
-                        <a th:if="${rentSearchResult.rentPaginationDTO.currentPage > 1}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.currentPage - 1}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}">&lt;</a>
+                        <a th:if="${rentSearchResult.rentPaginationDTO.currentPage > 1}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.currentPage - 1}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent}, areaRange=${searchDto.areaRange})}">&lt;</a>
                         <span th:if="${rentSearchResult.rentPaginationDTO.currentPage == 1}" class="page-link">&lt;</span>
                     </li>
                     <!-- 페이지 번호 버튼 -->
                     <li th:each="pageNumber : ${#numbers.sequence(rentSearchResult.rentPaginationDTO.beginPage, rentSearchResult.rentPaginationDTO.endPage)}" class="page-item" th:classappend="${pageNumber == rentSearchResult.rentPaginationDTO.currentPage} ? 'active'">
-                        <a class="page-link" th:href="@{/rent/search(page=${pageNumber}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}" th:text="${pageNumber}">1</a>
+                        <a class="page-link" th:href="@{/rent/search(page=${pageNumber}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent}, areaRange=${searchDto.areaRange})}" th:text="${pageNumber}">1</a>
                     </li>
                     <!-- '다음' 버튼 -->
                     <li class="page-item" th:classappend="${rentSearchResult.rentPaginationDTO.currentPage == rentSearchResult.rentPaginationDTO.totalPages} ? 'disabled'">
-                        <a th:if="${rentSearchResult.rentPaginationDTO.currentPage < rentSearchResult.rentPaginationDTO.totalPages}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.currentPage + 1}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}">&gt;</a>
+                        <a th:if="${rentSearchResult.rentPaginationDTO.currentPage < rentSearchResult.rentPaginationDTO.totalPages}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.currentPage + 1}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent}, areaRange=${searchDto.areaRange})}">&gt;</a>
                         <span th:if="${rentSearchResult.rentPaginationDTO.currentPage == rentSearchResult.rentPaginationDTO.totalPages}" class="page-link">&gt;</span>
                     </li>
                     <!-- '마지막' 버튼 -->
                     <li class="page-item" th:classappend="${rentSearchResult.rentPaginationDTO.last} ? 'disabled'">
-                        <a th:if="${!rentSearchResult.rentPaginationDTO.last}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.totalPages}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent})}">&raquo;</a>
+                        <a th:if="${!rentSearchResult.rentPaginationDTO.last}" class="page-link" th:href="@{/rent/search(page=${rentSearchResult.rentPaginationDTO.totalPages}, sggCd=${searchDto.sggCd}, umdNm=${searchDto.umdNm}, name=${searchDto.name}, minDeposit=${searchDto.minDeposit}, maxDeposit=${searchDto.maxDeposit}, minRent=${searchDto.minRent}, maxRent=${searchDto.maxRent}, areaRange=${searchDto.areaRange})}">&raquo;</a>
                         <span th:if="${rentSearchResult.rentPaginationDTO.last}" class="page-link">&raquo;</span>
                     </li>
                 </ul>
@@ -193,9 +221,9 @@
             });
         });
         // 만약 값이 있다면, change 이벤트를 강제로 실행
-        const existentSggCode = $('#sgg-select').val(); // select id="sgg-select 에 <option> 에 value
+        const existentSggCode = $('#sgg-select').val();
         if (existentSggCode) {
-            $('#sgg-select').trigger('change'); // 이벤트 강제 발생
+            $('#sgg-select').trigger('change');
         }
     });
 </script>

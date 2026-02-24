@@ -44,6 +44,25 @@
             <if test="searchDto.minRent != null and searchDto.maxRent != null">
                 AND monthly_rent BETWEEN #{searchDto.minRent} AND #{searchDto.maxRent}
             </if>
+            <if test="searchDto.areaRange != null and searchDto.areaRange != ''">
+                <choose>
+                    <when test="searchDto.areaRange == 'UNDER_33'">
+                        AND area &lt;= 33
+                    </when>
+                    <when test="searchDto.areaRange == 'BETWEEN_34_52'">
+                        AND area BETWEEN 34 AND 52
+                    </when>
+                    <when test="searchDto.areaRange == 'BETWEEN_53_66'">
+                        AND area BETWEEN 53 AND 66
+                    </when>
+                    <when test="searchDto.areaRange == 'BETWEEN_66_99'">
+                        AND area BETWEEN 66 AND 99
+                    </when>
+                     <when test="searchDto.areaRange == 'OVER_99'">
+                         AND area &gt; 99
+                    </when>
+                </choose>
+            </if>
         </where>
     </sql>
 
