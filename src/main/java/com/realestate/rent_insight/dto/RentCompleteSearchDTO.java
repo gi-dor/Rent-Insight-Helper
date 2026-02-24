@@ -23,8 +23,8 @@ public class RentCompleteSearchDTO {
     private Integer maxDeposit; // 최대 보증금 (단위: 만원)
 
     // 월세
-    private Integer minRent = 0;    // 최소 월세 (단위: 만원)
-    private Integer maxRent = 0;    // 최대 월세 (단위: 만원)
+    private Integer minRent;    // 최소 월세 (단위: 만원)
+    private Integer maxRent;  // 최대 월세 (단위: 만원)
 
     private String areaRange;    // 평형 미터제곱
 
