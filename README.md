@@ -71,7 +71,7 @@
 | **평균 응답 시간** | 15.21 ms | **12.46 ms** | **-18.1%** (응답 속도 향상) |
 | **순수 쿼리 실행 시간** | **76.0 ms** | **1.7 ms**   | **-97.8% (약 45배 향상)** |
 > **자세한 성능 개선 과정은 아래 기술 블로그에 상세히 기록했습니다.**
-> - **[DB 성능개선] 인덱스(Index) 설정 전 / 후 성능 비교 (nGrinder , EXPLAIN)** - [[블로그 링크]](https://gi-dor.tistory.com/288)
+> - **[DB 성능개선] 인덱스(Index) 설정 전 / 후 성능 비교 (nGrinder , EXPLAIN)** - <a href="https://gi-dor.tistory.com/288" target="_blank">[블로그 링크]</a>
 
 ## 6. 겪었던 문제 및 해결 과정 (Troubleshooting)
 
@@ -86,7 +86,7 @@
 - **결과**: 이 커스터마이징을 통해, 사용자는 로그인 실패 원인을 명확하게 인지하고 다음 행동을 결정할 수 있게 되어, 서비스의 사용 편의성을 크게 개선할 수 있었습니다.
 
 > **자세한 구현 과정은 아래 기술 블로그에 기록했습니다.**
-> - **[Spring Security] 로그인 실패시 에러 메시지 구체화하기 (LoginFailHandler)** - [[블로그 링크]](https://gi-dor.tistory.com/286)
+> - **[Spring Security] 로그인 실패시 에러 메시지 구체화하기 (LoginFailHandler)** - <a href="https://gi-dor.tistory.com/286" target="_blank">[블로그 링크]</a>
 
 ### 2. MyBatis 동적 쿼리 및 페이징 구현의 복잡성
 - **문제**: 지역, 보증금, 평형 등 사용자의 검색 조건은 매우 다양하며, 어떤 조건이 들어올지 예측할 수 없었습니다. 이를 Java 코드의 `if-else` 분기문으로 처리하는 것은 코드의 복잡도를 기하급수적으로 증가시키는 문제점이 있었습니다.
@@ -101,7 +101,7 @@
   2. **엣지 케이스 고려**: 단순히 `document.cookie.includes()`를 사용하면, `do_not_hideNotice`와 `hideNotice`처럼 이름이 유사한 다른 쿠키에 의해 오작동할 수 있다는 점을 인지했습니다. 이를 방지하기 위해, 쿠키 문자열을 `;`로 분리하고, 정확한 `key`로 시작하는지 검사하는 안정적인 `getCookie()` 헬퍼 함수를 직접 구현하여 버그 발생 가능성을 원천 차단했습니다.
 
 > **자세한  과정은 아래 기술 블로그에 상세히 기록했습니다.**
-> - **[팝업 모달] JS,Cookie 활용 includes()에서 getCookie()로** - [[블로그 링크]](https://gi-dor.tistory.com/289)
+> - **[팝업 모달] JS,Cookie 활용 includes()에서 getCookie()로** - <a href="https://gi-dor.tistory.com/289" target="_blank">[블로그 링크]</a>
 
 ### 4. 개발/테스트 환경 구성 문제
 - **문제**: 부하 테스트 도구인 `nGrinder` 실행 시, `ClassNotFoundException`이 발생하며 Worker Process가 시작되지 않았습니다.
