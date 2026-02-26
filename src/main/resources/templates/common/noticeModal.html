@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- ============================================== -->
+<!-- 서비스 업데이트 안내 팝업 (모달) -->
+<!-- ============================================== -->
+<div th:fragment="noticeModal">
+    <div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+
+                <!-- 모달 헤더 검정색 bg-dark -->
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fw-bold" id="noticeModalLabel">
+                        <i class="bi bi-megaphone-fill me-2"></i>서비스 업데이트 로드맵 안내
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="closeNoticeModal()"></button>
+                </div>쿠키
+
+                <!-- 모달 바디 (내용) -->
+                <div class="modal-body p-3">
+                    <p class="text-dark fw-semibold mb-3">
+                        현재 Rent Insight는 베타 서비스 중입니다.<br>
+                        더 나은 서비스를 위해 아래 기능들을 열심히 준비하고 있습니다!
+                    </p>
+
+                    <ul class="list-group list-group-flush mb-2 text-start">
+                        <li class="list-group-item px-0 py-2 border-0">
+                            <i class="bi bi-file-earmark-excel text-success me-2 fs-5 align-middle"></i>
+                            <span class="align-middle">검색 데이터 엑셀 다운로드</span>
+                        </li>
+                        <li class="list-group-item px-0 py-2 border-0">
+                            <i class="bi bi-bell text-warning me-2 fs-5 align-middle"></i>
+                            <span class="align-middle">맞춤 매물 알림 서비스</span>
+                        </li>
+                        <li class="list-group-item px-0 py-2 border-0">
+                            <i class="bi bi-google text-warning me-2 fs-5 align-middle"></i>
+                            <span class="align-middle">구글 , 카카오 소셜 로그인</span>
+                        </li>
+                        <li class="list-group-item px-0 py-2 border-0">
+                            <i class="bi bi-graph-up-arrow text-primary me-2 fs-5 align-middle"></i>
+                            <span class="align-middle">과거~현재 전월세 시세 변동 그래프</span>
+                            <div class="small text-muted mt-1" style="margin-left: 32px;">
+                                ※ 정확한 그래프 기준점을 구상 중입니다.
+                            </div>
+                        </li>
+                        <li class="list-group-item px-0 py-2 border-0">
+                            <i class="bi bi-building text-info me-2 fs-5 align-middle"></i>
+                            <span class="align-middle">다가구/다세대 , 아파트 조회 지원</span>
+                            <div class="small text-muted mt-1" style="margin-left: 32px;">
+                                ※ 현재는 '오피스텔' 실거래가 조회만 제공됩니다.
+                            </div>
+                        </li>
+                        <li class="list-group-item px-0 py-2 border-0">
+                            <i class="bi bi-file-earmark-bar-graph text-danger me-2 fs-5 align-middle"></i>
+                            <span class="align-middle">지역별 전월세 통계 분석 리포트</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 모달 푸터 (24시간 보지 않기 & 닫기) -->
+                <div class="modal-footer d-flex justify-content-between bg-light">
+                    <div class="form-check mb-0">
+                        <input class="form-check-input" type="checkbox" id="hideFor24Hours">
+                        <label class="form-check-label text-muted small mt-1" for="hideFor24Hours" style="cursor: pointer;">
+                            24시간 동안 보지 않기
+                        </label>
+                    </div>                                               <!--  data-bs-dismiss="modal" 내장 JS라이브러리-->
+                    <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal" onclick="closeNoticeModal()">닫기</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -6,6 +6,9 @@
     <title>실거래가 상세 조회 - Rent Insight</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Bootstrap JS (반드시 모달 제어 스크립트보다 위에 위치해야 함) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         body { background-color: #f8f9fa; }
         .search-card { border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-radius: 12px; }
@@ -191,6 +194,9 @@
     </div>
 </div>
 
+<!-- 상세검색 모달 Fragment -->
+<div th:replace="~{rent/searchModal :: searchModal}"></div>
+
 <footer th:replace="~{common/footer :: footer}"></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -226,6 +232,81 @@
             $('#sgg-select').trigger('change');
         }
     });
+
+
+
+    // 페이지 모두 열리면 모달 창 실행됨
+    window.onload = function () {
+        // if(document.cookie.includes("hideSearchModal=true")) {
+        //     // 쿠가 있으면 아무것도 안함
+        // } else {
+        //     // 쿠키 없으면 팝업 띄움
+        //     let noticeModal = new bootstrap.Modal(document.getElementById('searchModal'));
+        //     noticeModal.show();
+        // }
+        // 실제 업무 들어간다면
+        if(!getCookie('hideSearchModal')) {
+            let noticeModal = new bootstrap.Modal(document.getElementById('searchModal'));
+            noticeModal.show();
+        }
+    }
+
+    // 쿠키 확인 함수
+    function getCookie(name) {
+        let nameCookie = name + "=";
+        console.log('nameCookie',nameCookie)    // "hideSearchModal="
+
+        // (2) ['hideNotice=true', ' hideSearchModal=true']
+        let splitCookie = document.cookie.split(';');
+        console.log('splitCookie',splitCookie)
+
+        for(let i = 0; i < splitCookie.length; i++) {
+            let cookie = splitCookie[i];
+            console.log('splitCookie[i]',cookie)    // hideNotice=true ,  hideSearchModal=true
+
+            // 두번째 쿠키 부터는 앞에 ' hideSearchModal=true' 이런식으로 공백이있다
+            while (cookie.charAt(0) === ' ') {
+                cookie = cookie.substring(1, cookie.length);
+                console.log('while cookie',cookie)
+            }
+
+            if (cookie.indexOf(nameCookie) === 0) {
+                console.log('nameCookie.length',nameCookie.length)  // 16
+                console.log('cookie.length',cookie.length)          // 20
+                console.log('cookieString',cookie)                  // hideSearchModal=true
+                return  cookie.substring(nameCookie.length, cookie.length);
+            }
+        }
+        return null;
+    }
+
+
+    function closeSearchModal() {
+        let checkbox = document.getElementById('hideFor24Hours');
+        if(checkbox.checked) {
+            // 체크 되어있다면 쿠키 설정되어있는 setCookie()
+            setCookie("hideSearchModal","true",1);
+        }
+    }
+
+    /**
+     * @param {string} name - 만들고 싶은 쿠키의 이름
+     * @param {string} value - 쿠키에 저장할 값
+     * @param {number} days - 쿠키의 유효기간 (일 단위)
+     */
+    function setCookie(name , value , days) {
+        let todayDate = new Date();
+        let duration = days * 24 * 60 * 60 * 1000;
+
+        // 현재 시간에 24시간(24 * 60분 * 60초 * 1000밀리초)을 더함
+        todayDate.setTime(todayDate.getTime() + duration);
+
+        let expires = todayDate.toUTCString();
+
+        // 쿠키 생성 -  document.cookie 속성을 이용해 쿠키를 create, delete, read
+        //  document.cookie = "쿠키이름=쿠키값" document.cookie = "username = 기선";
+        document.cookie = name + "=" + value + "; expires=" + expires + "; path=/";
+    }
 </script>
 
 </body>

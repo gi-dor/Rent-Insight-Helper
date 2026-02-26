@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- ============================================== -->
+<!-- 상세조회 이슈 안내 팝업 (모달)  -->
+<!-- ============================================== -->
+<div th:fragment="searchModal">
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+
+                <!-- 검정색 bg-dark -->
+                <div class="modal-header bg-secondary text-white">
+                    <h5 class="modal-title fw-bold" id="searchModalLabel">
+                        <i class="bi bi-megaphone-fill me-2"></i>실거래가 상세 조회 안내
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="closeSearchModal()"></button>
+                </div>
+
+                <!-- 모달 바디 (내용) -->
+                <div class="modal-body p-3">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-search text-secondary" style="font-size: 3rem;"></i>
+                    </div>
+
+                    <h6 class="fw-bold text-dark mb-3">현재 <span class="text-primary">'오피스텔'</span> 실거래 데이터만 제공됩니다.</h6>
+                    <p class="text-muted mb-3" style="font-size: 0.95rem; line-height: 1.6;">
+                        Rent Insight는 베타 서비스 중이기에 <strong>오피스텔 실거래가 기록</strong>만을 우선적으로 검색 서비스에 반영하고 있습니다.
+                    </p>
+
+                    <div class="alert alert-light border border-warning-subtle text-dark small" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+                        오피스텔 거래 기록이 없는 <strong>다수의 법정동(동)</strong>에서는 검색 결과가 <strong>'0건'</strong>으로 표시될 수 있습니다. (오류가 아닙니다!)
+                    </div>
+
+                    <p class="text-muted small mb-0 mt-3">
+                        <i class="bi bi-tools me-1"></i> 추후 아파트, 다가구, 다세대 주택 등 모든 주거 형태의 데이터를 <br/> 순차적으로 업데이트하여 빈틈없는 정보를 제공할 예정입니다.
+                    </p>
+                </div>
+
+                <!-- 모달 푸터 (24시간 보지 않기 & 닫기) -->
+                <div class="modal-footer d-flex justify-content-between bg-light">
+                    <div class="form-check mb-0">
+                        <input class="form-check-input" type="checkbox" id="hideFor24Hours">
+                        <label class="form-check-label text-muted small mt-1" for="hideFor24Hours" style="cursor: pointer;">
+                            24시간 동안 보지 않기
+                        </label>
+                    </div>                                               <!--  data-bs-dismiss="modal" 내장 JS라이브러리-->
+                    <button type="button" class="btn btn-secondary btn-sm px-4" data-bs-dismiss="modal" onclick="closeSearchModal()">닫기</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>
