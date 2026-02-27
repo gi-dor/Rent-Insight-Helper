@@ -25,6 +25,10 @@ repositories {
 }
 
 dependencies {
+	// 엑셀(.xlsx) 파일 처리를 위한 Apache POI 라이브러리
+	implementation 'org.apache.poi:poi-ooxml:5.2.2'
+	 implementation 'org.apache.poi:poi:5.2.2'
+
 	// Jackson 3.x 버전으로 통일 (Spring Boot 4.x 호환)
 	implementation platform("tools.jackson:jackson-bom:3.0.0")
 	// Now declare Jackson modules WITHOUT versions

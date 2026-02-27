@@ -18,6 +18,8 @@ public interface RentCompleteMapper {
             @Param("limit") int limit,
             @Param("offset") int offset);
 
+    // 페이징 없이 조건으루 싹 검색
+    List<RentComplete> findAllByComplexConditions(@Param("searchDto") RentCompleteSearchDTO searchDto);
 
     int countByComplexConditions(@Param("searchDto") RentCompleteSearchDTO searchDto);
 }

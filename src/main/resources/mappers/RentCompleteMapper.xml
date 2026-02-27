@@ -27,6 +27,29 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <!-- 엑셀 다운로드를 위한 페이징 없는 전체 데이터 조회 -->
+    <select id="findAllByComplexConditions" resultType="com.realestate.rent_insight.domain.entity.RentComplete">
+        SELECT
+        id,
+        contract_date AS contractDate,
+        sgg_cd AS sggCd,
+        sgg_nm AS sggNm,
+        umd_nm AS umdNm,
+        jibun,
+        name,
+        deposit,
+        monthly_rent AS monthlyRent,
+        area,
+        build_year AS buildYear,
+        floor,
+        contract_term AS contractTerm,
+        contract_type AS contractType
+        FROM
+        rent_complete
+        <include refid="whereCondition" />
+        ORDER BY contract_date DESC
+    </select>
+
     <sql id="whereCondition">
         <where>
             <if test="searchDto.sggCd != null and searchDto.sggCd != ''">
