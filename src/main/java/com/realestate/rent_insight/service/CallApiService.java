@@ -50,7 +50,7 @@ public class CallApiService {
     @Value("${api.baseUrl}")
     private String baseUrl;
 
-    @Scheduled(cron = "0 00 21 * * MON-SAT")
+    @Scheduled(cron = "0 00 19 * * MON-SUN")
     public void callDataSeoul(){
         String dealYmd = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
         log.info("스케줄러가 실행됩니다. 대상 월: {}", dealYmd);
