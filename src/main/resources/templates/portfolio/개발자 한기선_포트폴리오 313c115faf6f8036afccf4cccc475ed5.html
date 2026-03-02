@@ -1,0 +1,736 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>개발자 한기선_포트폴리오</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="313c115f-af6f-8036-afcc-f4cccc475ed5" class="page sans"><header><h1 class="page-title" dir="auto" style="margin-bottom: 10px">개발자 한기선_포트폴리오</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><div id="313c115f-af6f-803a-baa6-e4b8b0f81fef" class="column-list"><div style="display:contents" dir="auto"><div id="313c115f-af6f-80b0-ae74-d07c982154cc" style="width:31.25%" class="column"><div style="display:contents" dir="ltr"><figure id="313c115f-af6f-806e-a890-c793850ad4c4" class="image"><a href=""><img style="width:200px" src="/resources/templates/portfolio/giseonPhoto.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8096-8713-e8d39f840fa6" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="313c115f-af6f-8046-bd3f-dac45be4710c" style="width:68.75%" class="column"><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex;margin-bottom: 0px;" id="313c115f-af6f-8072-a0c5-d9ca6e44eb90"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>Name : </strong>한기선<div style="display:contents" dir="auto"><p id="313c115f-af6f-80e0-8821-d89c369bb92a" class=""><strong>Tel :</strong> 010 - 9694 - 6294    <strong>                           </strong></p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80ad-804d-ed184c3398fe" class=""><strong>Birth : </strong>1994 . 01 . 20<strong>          </strong></p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8057-a93e-f477a645c5f6" class=""><strong>Email</strong> : rltjs3563@naver.com</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80be-a5bf-f282e43f28d7" class=""><strong>GitHub : </strong><a href="https://github.com/gi-dor">https://github.com/gi-dor</a>          </p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8033-8f97-c488145000e7" class=""><strong>Certificate</strong></p></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-806c-8595-ed16db901ffe" class="bulleted-list"><li style="list-style-type:disc">정보처리 산업 기사 2024.09</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8042-8408-e0e798be2c5c" class="bulleted-list"><li style="list-style-type:disc">SQL 개발자 2024.12  </li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80e2-81aa-edff404513d5" class=""><strong>Career</strong></p></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80c2-8ecc-cda9e3b196d4" class="bulleted-list"><li style="list-style-type:disc">블루비즈랩 2024.11 ~ 2026.01</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80ca-bbc8-c7fd0fb85a35" class="bulleted-list"><li style="list-style-type:disc">성화기업택배 개발자 2024.08 ~ 2024.10</li></ul></div></div></figure></div></div></div></div></div><div style="display:contents" dir="auto"><h2 id="313c115f-af6f-8073-980b-eb8f3e440d0e" class="" style="margin-top: 1px">🧑🏻‍🦱<mark class="highlight-orange">About Me</mark></h2></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80fe-bb50-fc4fb38d8eab" class="">       <strong>Backend-Engineer, Web Developer</strong></p></div><div style="display:contents" dir="auto"><hr id="313c115f-af6f-8000-b5d1-fd5f43141a90"/></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-802f-8e89-e54470b87f3e" class="" style="margin-top: 1px;">Introduce</h3></div><div style="display:contents" dir="ltr"><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex;margin-top: 0px;margin-bottom: 0px" id="313c115f-af6f-80cb-ad81-fa5f39c441b7"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="313c115f-af6f-8018-be1a-deab8ce86ce1" class="">데이터 기반의 성능 개선과 업무 자동화를 통해 문제를 해결하는 개발자 한기선입니다.<br/></p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-805f-b02f-f218071e3273" class="">오래된 레거시 DB 환경에서 반복적으로 수행되던 수동 쿼리 작업을 자동화하여 업무 시간을 단축한 경험이 있습니다.</p></div><br/><div style="display:contents" dir="auto"><p id="313c115f-af6f-80f3-bd1a-f988ca0c4df1" class="">공공데이터 기반 시세 조회 서비스를 개발하며 실행 계획(EXPLAIN) 분석</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-800c-839b-d83cbcdce3f8" class="">복합 인덱스 설계, 부하 테스트(nGrinder)를 통해 조회 성능을 약 45배 개선했습니다.<br/><br/></p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8012-93b6-ecc9978b2b46" class="">기술을 단순 구현 수단이 아닌 비즈니스 문제를 해결하는 도구로 활용하고자 합니다.</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80f6-809e-fa55f87249bb" class="">더 큰 트래픽과 복잡한 도메인을 경험하며 팀과 함께 성장하는 엔지니어가 되는 것이 목표입니다.</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80ab-9119-ee8422e1f369" class="">💻 기술 스택</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80fa-a737-d59897245b7c" class="bulleted-list"><li style="list-style-type:disc">Back <div style="display:contents" dir="auto"><ul id="313c115f-af6f-802e-b1a7-ce5fd8c4b87c" class="bulleted-list"><li style="list-style-type:circle">Java</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8058-be1a-c0e0b1ac27e0" class="bulleted-list"><li style="list-style-type:circle">Spring Boot </li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80f1-8a87-d4bcd579091d" class="bulleted-list"><li style="list-style-type:circle">Mybatis  (복잡한 조회 및 성능 튜닝 쿼리 작성) </li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80b2-ab0e-f850358e1887" class="bulleted-list"><li style="list-style-type:circle">JPA (기본 CRUD) </li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80cf-aaa9-ea80b8f8fcca" class="bulleted-list"><li style="list-style-type:circle">Spring Scheduler ( 공공 데이터 주기적 데이터 수집) </li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-806c-9552-c5fb886fda83" class="bulleted-list"><li style="list-style-type:disc">DataBase <div style="display:contents" dir="auto"><ul id="313c115f-af6f-8012-ac4b-c12d3bd47089" class="bulleted-list"><li style="list-style-type:circle">MySQL / Oracle</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80b2-a5d4-cc4db645562c" class="bulleted-list"><li style="list-style-type:circle">Index 설계 및 실행 계획(EXPLAIN) 기반 성능 개선</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80bd-b470-d53e42279c4a" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="313c115f-af6f-8059-891e-db3f3024bf70"/></div><div style="display:contents" dir="auto"><p id="314c115f-af6f-8023-8d59-d4151f388057" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="313c115f-af6f-80d5-ab32-f7ab7a694c60" class="">| Projects</h2></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-804f-b17d-f4f8dd043f6e" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80ec-b8b3-dcd8c4d072d5" class="">1️⃣ [ Rent-Insight-Helper ]</h3></div><div style="display:contents" dir="auto"><blockquote id="313c115f-af6f-8025-8273-f732118b79ed" class="">공공데이터 기반 전월세 실거래 시세 조회 및 분석 서비스<br/>GitHub: <a href="https://github.com/gi-dor/Rent-Insight-Helper">https://github.com/gi-dor/Rent-Insight-Helper</a></blockquote></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8021-8b0b-da7bb37fbc4c" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-8071-8fdf-db9c5d873de7" class="">프로젝트 개요</h3></div><div style="display:contents" dir="auto"><blockquote id="313c115f-af6f-802d-abb6-e7e4fc22002e" class=""><strong>Rent Insight</strong>는 국토교통부의 공공데이터를 기반으로, 서울시 오피스텔 전월세 실거래 데이터를 매일 자동으로 수집하고 <br/>사용자가 원하는 조건에 맞는 실거래가 정보를 조회하고 분석할 수 있는 백엔드 중심의 웹 애플리케이션입니다.<br/><br/>단순한 CRUD를 넘어, <strong>외부 API 연동, 데이터 수집 자동화, 대용량 데이터 조회 성능 최적화, 그리고 Spring Security를 이용한 인증/인가 처리</strong>에 중점을 두어 개발을 진행했습니다.</blockquote></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80b8-8686-f50a9662edee" class="">사용 기술</h3></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80ef-85c7-e2dc11be30d0" class="">Spring Boot / MyBatis / JPA / MySQL / Spring Security / nGrinder</p></div><div style="display:contents" dir="auto"><p id="314c115f-af6f-80d7-b15e-d0a155c0b20d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-804e-99e3-e5d67fed0b72" class=""><strong>[ 주요 기능 ]</strong></h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-809a-8ec3-cb30a2cc4558" class="bulleted-list"><li style="list-style-type:disc">데이터 수집 자동화<div style="display:contents" dir="auto"><ul id="313c115f-af6f-8022-84b7-d9cb818cfd3c" class="bulleted-list"><li style="list-style-type:circle">Spring Scheduler를 활용하여 매일 9시  국토교통부  공공데이터 API 자동 호출</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80ef-b116-c873c9bc5498" class="bulleted-list"><li style="list-style-type:circle">수집 성공 / 실패 이력을  <code>DataUpdateLog</code>  테이블로 관리</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80b5-9ae9-fbc9357cef7a" class="bulleted-list"><li style="list-style-type:circle">API로 조회한 데이터를 DB와 한건씩 비교하여  새로운 데이터만 INSERT하는 방식을 고려했습니다. 하지만 매일 수백 수천 건의 데이터를 비교하는 과정에서 과도한 SELECT 쿼리가 발생하여 오히려<br/>성능이 저하될 수 있다고 판단해서  기존 데이터 DELETE 후 Batch INSERT 방식 적용<br/></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80c2-aa09-df4a517e2761" class="bulleted-list"><li style="list-style-type:disc">조건 기반 대용량 조회 <div style="display:contents" dir="auto"><ul id="313c115f-af6f-8065-9843-ea0e76d5826d" class="bulleted-list"><li style="list-style-type:circle">지역, 건물명, 보증금/월세 범위, 전용면적(평형) 등 복합적인 조건에 따른 동적 쿼리 구현</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8088-ae7a-eed7d3b4a0ad" class="bulleted-list"><li style="list-style-type:circle">복잡한 조건이 많은 조회이므로  MyBatis로 역할 분리</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-802d-8d8a-d0950629c387" class="bulleted-list"><li style="list-style-type:circle">복합 인덱스를 설계하여 조회 쿼리 실행속도  약 45배 개선 <div style="display:contents" dir="auto"><ul id="313c115f-af6f-80f9-a400-c55e686f64e9" class="bulleted-list"><li style="list-style-type:square">인덱스 적용 전: 0.076037 초 (약 76.0 ms)</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8073-8c74-ee9d3e4dd73e" class="bulleted-list"><li style="list-style-type:square">인덱스 적용 후: 0.001675 초 (약 1.7 ms)</li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-809e-aa6d-c3343361e585" class="">
+</p></div></li></ul></div></li></ul></div><div style="display:contents" dir="auto"><br/><br/><br/><ul id="313c115f-af6f-80e7-9f9d-eb27ad0e0637" class="bulleted-list"><li style="list-style-type:disc">사용자 <div style="display:contents" dir="auto"><ul id="313c115f-af6f-80cd-99c1-ff441ed893f3" class="bulleted-list"><li style="list-style-type:circle">Spring Security를 적용하여 세션 기반 로그인/로그아웃 기능 구현</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8047-b9b7-e39c33545113" class="bulleted-list"><li style="list-style-type:circle">회원가입 시 <code>BCryptPasswordEncoder</code>를 사용하여 비밀번호 암호화 후 저장</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80bc-b30c-fa670e17e28b" class="bulleted-list"><li style="list-style-type:circle"><code>UserDetailsService</code>를  구현하여<strong> </strong>DB 기반 사용자 인증 처리</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80db-9e7b-d43a7a6fdf19" class="bulleted-list"><li style="list-style-type:circle">로그인 실패시  SimpleUrlAuthenticationFailureHandler 를 구현하여 실패 사유에 따른 에러 메시지 처리 로직 구현 </li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8078-a6ed-e99b82583984" class="">
+</p></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8053-ac0f-e9f3c043d5d7" class="bulleted-list"><li style="list-style-type:disc">팝업 모달 및 24시간 보지 않기 기능 구현<div style="display:contents" dir="auto"><ul id="313c115f-af6f-80af-ac73-fcf6029420a9" class="bulleted-list"><li style="list-style-type:circle">메인 페이지 진입 시 서비스 업데이트 로드맵 안내를 위한 <strong>Bootstrap </strong>모달 팝업 구현</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-801b-b5ad-f3d47c49d18a" class="bulleted-list"><li style="list-style-type:circle">“24시간 동안 보지 않기”  체크박스 선택 시 쿠키(<code>hideNotice</code>) 를 생성하여 재노출 방지</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8019-9d22-e028992614ae" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-8049-937d-ffdf3bb5ac50" class=""><strong>[ 트러블 슈팅 및 개선 사항 ]</strong></h3></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80c6-93f8-e132f29670ed" class="">왜 DELETE 후 INSERT 방식을 선택했는가?</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8077-a215-fd86291b21d2" class="bulleted-list"><li style="list-style-type:disc">초기에는 기존 DB 데이터와 API 수집 데이터를 한 건씩 비교하여 신규 데이터만 INSERT 하려했습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80fd-afa3-e04289af9706" class="bulleted-list"><li style="list-style-type:disc">매일 수백~수천 건의 데이터를 비교하기 위해 대량의 SELECT 쿼리가 반복적으로 발생하게 되면<br/>오히려 전체 수집 성능을 저하시킬 수 있다고 판단 했습니다</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-805c-b59e-f1fe8940a353" class="bulleted-list"><li style="list-style-type:disc">해당 데이터는 월 단위(DEAL_YMD)로 명확히 구분되는 특성을 가지므로 해당 월 데이터를 <br/>DELETE한 후 Batch INSERT하는 것이 쿼리 횟수와 처리 복잡도 측면에서 더 효율적이라고 판단했습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-806d-aa75-c243fb88bc86" class="bulleted-list"><li style="list-style-type:disc">불필요한 비교 연산을 제거하고 JPA의 saveAll() 배치 처리 기능을 활용하여 수집 처리 시간을 최소화</li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-805a-9f84-e8f4c4d4cf49" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-8048-b1cf-e4e1ad10b70c" class=""><strong>조회 성능 최적화: 쿼리 실행 시간 약 45배 향상 </strong>[ <mark class="highlight-blue"><a href="https://gi-dor.tistory.com/288">블로그</a></mark> ]</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-804a-a985-cecaf9cc9582" class="bulleted-list"><li style="list-style-type:disc">프로젝트의 핵심 기능인 &#x27;실거래가 검색&#x27;은, 데이터가 누적될수록 성능 저하가 발생할 수 있다고 판단 <code>EXPLAIN</code>, <code>nGrinder</code>, <code>MySQL Profiling</code>을 활용하여 문제를 진단하고, 인덱스 설계를 통해 성능을 개선</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80b7-8f71-fb9954da57ae" class="bulleted-list"><li style="list-style-type:disc"><strong> Full Table Scan의 발견</strong><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80cb-be85-ec1302efa390" class="bulleted-list"><li style="list-style-type:circle"><code>EXPLAIN</code> 분석 결과, 약 17만 건의 데이터에 대해 <code>type: ALL</code> (Full Table Scan)이 발생하고 있었습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-809c-b3d4-f5f291168ed7" class="bulleted-list"><li style="list-style-type:circle"> <code>nGrinder</code>를 통해 99명의 동시 접속 부하 테스트 시, <strong>99명을 초과하면 에러가 <br/>발생</strong>하는 한계점을 확인했습니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-800b-b1d9-f18ffcaf5571" class="bulleted-list"><li style="list-style-type:disc"><strong> 복합 인덱스 설계 및 적용</strong><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8088-b290-df1840a532f6" class="bulleted-list"><li style="list-style-type:circle"><code>WHERE</code> 절의 검색 패턴(동등 비교 우선, 범위 비교 후순)을 분석하여, 가장 효율적인 <code><strong>(sgg_cd, umd_nm, area)</strong></code><strong> 복합 인덱스</strong>를 설계하고 적용</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80b1-8013-ed97bf37fb71" class="bulleted-list"><li style="list-style-type:disc">개선 결과 : <strong>데이터로 증명된 성능 향상</strong></li></ul></div><div style="display:contents" dir="ltr"><table id="313c115f-af6f-8030-ac3f-c2be4bbfd35d" class="simple-table"><tbody><div style="display:contents" dir="ltr"><tr id="313c115f-af6f-8000-8abb-c7a2ec2a9665"><td id="uR_v" class="" style="width:160.328125px"></td><td id="AqlV" class="" style="width:139.328125px">인덱스 적용 전</td><td id="LwRv" class="" style="width:148.328125px">인덱스 적용 후</td><td id="b?m{" class="">개선 효과</td></tr></div><div style="display:contents" dir="ltr"><tr id="313c115f-af6f-80c2-ba79-c292c80f46b8"><td id="uR_v" class="" style="width:160.328125px">평균 TPS</td><td id="AqlV" class="" style="width:139.328125px">6,468.8</td><td id="LwRv" class="" style="width:148.328125px">7,884.2</td><td id="b?m{" class="">+21.9% (처리 용량 증가)</td></tr></div><div style="display:contents" dir="ltr"><tr id="313c115f-af6f-805e-80d9-c54ac6564d11"><td id="uR_v" class="" style="width:160.328125px">최고 TPS</td><td id="AqlV" class="" style="width:139.328125px">7,117.0</td><td id="LwRv" class="" style="width:148.328125px">8,828.5</td><td id="b?m{" class="">+24.0% (순간 최대 처리량 증가)</td></tr></div><div style="display:contents" dir="ltr"><tr id="313c115f-af6f-80db-9a29-d13d6f02fa07"><td id="uR_v" class="" style="width:160.328125px">평균 응답 시간</td><td id="AqlV" class="" style="width:139.328125px">15.21 ms</td><td id="LwRv" class="" style="width:148.328125px">12.46 ms</td><td id="b?m{" class="">18.1% 응답시간 감소 </td></tr></div><div style="display:contents" dir="ltr"><tr id="313c115f-af6f-80c7-a6e8-ed5f26c5b6fd"><td id="uR_v" class="" style="width:160.328125px">순수 쿼리 실행 시간</td><td id="AqlV" class="" style="width:139.328125px">76.0 ms</td><td id="LwRv" class="" style="width:148.328125px">1.7 ms</td><td id="b?m{" class="">약 45배 향상</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80ab-9e03-fc8e72d204bb" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-8059-83cc-dc22ff8b9a12" class=""><strong>Spring Security 커스텀 로그인 실패 처리 </strong>[ <mark class="highlight-blue"><a href="https://gi-dor.tistory.com/286">블로그</a></mark> ]</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-809f-9805-f4ec527fa735" class="bulleted-list"><li style="list-style-type:disc">Spring Security의 기본 로그인 실패 처리는 &quot;자격 증명에 실패하였습니다&quot;  같은 에러 메시지만을 제공<br/>사용자는 &quot;ID가 틀린 것인지, 비밀번호가 틀린 것인지&quot;에 대한 명확한 피드백을 주지 못하여 사용자 경험(UX)이 낮아지는 문제점이 있었습니다.<div style="display:contents" dir="auto"><ul id="313c115f-af6f-80f0-a6f7-f32f6c2d4848" class="bulleted-list"><li style="list-style-type:circle"><code>AuthenticationFailureHandler</code> 인터페이스를 구현하는 <code><strong>LoginFailHandler</strong></code> 클래스를 직접 생성</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8090-96ff-ec744a034213" class="bulleted-list"><li style="list-style-type:circle"><code>onAuthenticationFailure</code> 메서드를 오버라이드하여, 로그인 실패 시 발생하는 <br/><code>AuthenticationException</code>의 구체적인 타입을 확인(<code>instanceof</code>)하는 분기 로직을 구현</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8093-ab12-d3fe3fcc78b0" class="bulleted-list"><li style="list-style-type:circle"><code><strong>UsernameNotFoundException</strong></code> 발생 시 &quot;존재하지 않는 아이디입니다.&quot;, </li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-809e-a463-ee086f8d5712" class="bulleted-list"><li style="list-style-type:circle"><code><strong>BadCredentialsException</strong></code> 발생 시 &quot;비밀번호가 일치하지 않습니다.&quot; 와 같이, 각 예외 상황에 맞는 구체적인 에러 메시지를 설정</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-807b-b712-c23b676b74ec" class="bulleted-list"><li style="list-style-type:circle">마지막으로 <code>SecurityConfig</code>에 <code>.failureHandler(loginFailHandler())</code>를 등록하여<br/>Spring Security가 기본 핸들러 대신 직접 구현한 커스텀 핸들러를 사용하도록 설정했습니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-809f-a6f0-c7991a5df3ae" class="bulleted-list"><li style="list-style-type:disc">커스터마이징을 통해, 사용자는 로그인 실패 원인을 명확하게 인지하고 다음 행동을 결정할 수 있게 되어, 서비스의 사용 편의성을 크게 개선할 수 있었습니다.</li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80b3-a618-f2aa82824577" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80de-b256-ed160be8662b" class="">쿠키 문자열 충돌 문제  [ <mark class="highlight-blue"><a href="https://gi-dor.tistory.com/289">블로그</a></mark> ]</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8049-89ad-c15f015b30ba" class="bulleted-list"><li style="list-style-type:disc">초기 구현 시 <code>document.cookie.includes()</code> 방식으로 쿠키 존재 여부를 확인</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80e4-ba93-c1f181c4cf0a" class="bulleted-list"><li style="list-style-type:disc">유사한 이름의 쿠키(<code>do_not_hideNotice</code>)가 존재할 경우 부분 문자열 일치로 오작동 가능성 발견</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80cf-8632-d9a695723776" class="bulleted-list"><li style="list-style-type:disc">해결 방안:<div style="display:contents" dir="auto"><ul id="313c115f-af6f-807e-9f7e-d95a0ac5e3cf" class="bulleted-list"><li style="list-style-type:circle">쿠키 문자열을 <code>;</code> 기준으로 분리</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80b4-80c4-fe95f8bb8bfb" class="bulleted-list"><li style="list-style-type:circle">각 항목이 정확히 <code>&quot;쿠키명=&quot;</code>으로 시작하는지 검사하는 <code>getCookie()</code> 함수 구현</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80be-8e84-c66400d6032e" class="bulleted-list"><li style="list-style-type:disc">다수 쿠키가 존재하는 실제 브라우저 환경에서도 안정적으로 동작하도록 개선</li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80a6-ad2a-c4de736cf82d" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-802f-8fb0-f4329dd12943" class=""><strong>MyBatis 동적 쿼리 및 페이징 구현의 복잡성</strong></h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80d1-b721-e7f84d80bd72" class="bulleted-list"><li style="list-style-type:disc">지역, 건물명, 보증금/월세 범위, 전용면적(평형) 등 사용자의 검색 조건은 매우 다양하며 <br/>어떤 조건이 들어올지 예측할 수 없었습니다.<br/>Java 코드의 <code>if-else</code> 분기문으로 처리하는 것은 코드의 복잡도를 증가 시킬수 있다고 판단했습니다<div style="display:contents" dir="auto"><ul id="313c115f-af6f-80b4-91b9-ffd092c9942b" class="bulleted-list"><li style="list-style-type:circle"><strong>동적 쿼리 </strong>: MyBatis의 <code>&lt;if&gt;</code>, <code>&lt;choose&gt;</code>, <code>&lt;when&gt;</code> 등 동적 SQL 태그를 사용하여  <br/>DTO의 필드 값이 <code>null</code>이 아닐 경우에만 <code>WHERE</code> 절에 <code>AND</code> 조건이 동적으로 추가되는 쿼리를 구현했습니다.</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8039-be69-c531a9347212" class="bulleted-list"><li style="list-style-type:circle"><strong>파라미터 전달 </strong>: 여러 종류의 파라미터(검색조건 DTO, 페이징 변수)를 전달하기 위해<br/><code>@Param</code> 어노테이션을 사용하여 각 파라미터의 이름과 타입을 명확히 지정하여 코드의 가독성을<br/>향상 시켰습니다.</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8003-ab29-f5178e3eff1a" class="">
+</p></div><br/><br/><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-8038-bc99-e087bb6c7ee5" class=""><strong>개발/테스트 환경 구성 문제</strong></h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8082-b3ff-d7114ae7c4ac" class="bulleted-list"><li style="list-style-type:disc">부하 테스트 도구인 <code>nGrinder</code> 실행 시, <code>ClassNotFoundException</code>이 발생하며 Worker Process가 시작되지 않는 문제 발생</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8075-ac6f-f1dbec9b04e1" class="bulleted-list"><li style="list-style-type:disc">원인이 nGrinder 3.5.x 버전과 최신 Java(17+) 버전 간의 호환성 문제임을 파악했습니다. <br/>가장 안정적인 해결책은 <strong>테스트 실행 환경을 nGrinder가 공식적으로 지원하는 Java 11로 다운그레이드</strong>하는 것이라고 판단<br/><code>JAVA_HOME</code> 환경 변수를 재설정하여 안정적인 테스트 환경을 구축하고 부하 테스트를 성공적으로 완료했습니다.</li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8013-9da9-c6725ae997e3" class=""><strong><br/></strong></p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80bf-937a-d48f31dbc060" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="313c115f-af6f-8016-93d1-c7c31c0f06cd"/></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-8014-a0d0-d1e3732424c8" class="">2️⃣ [ gidor_Helper ]</h3></div><div style="display:contents" dir="auto"><blockquote id="313c115f-af6f-80a4-887f-c10bf43e94a5" class="">레거시 물류 시스템 업무 자동화 프로그램 <br/>GitHub : <a href="https://github.com/gi-dor/gidor_Helper">https://github.com/gi-dor/gidor_Helper</a></blockquote></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-807b-a22c-f04516ee0ab3"  style="height: 16px;" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80d7-b877-d86e6ec8cd79" class="">프로젝트 개요</h3></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80db-9c80-c58a27ddc6bf" class="">2005년 이전부터 사용된 레거시 MSSQL 기반 물류 시스템에서</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-806d-9b4a-f00a8932eb59" class="">매일 반복적으로 수행되던 SQL 조회/수정 작업을 자동화하기 위해 개발한 업무 보조 프로그램입니다.<br/></p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80c6-a41d-d5d4d8fca20a" class="">테이블명이 <code>LS + 숫자</code> 형식으로 구성되어 있고</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80d2-8e7b-f0c83accf0a0" class="">관계 구조가 복잡해 매번 쿼리를 수동으로 작성해야 하는 비효율적인 환경이었고<br/></p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80ab-bc74-e36db145cb85" class="">이것을 회사 에서 사용하는  WinForms 을 이용해 UI 프로그램으로 자동화하여</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8067-b85f-c6ae70deb72b" class="">업무 처리 속도와 정확성을 개선했습니다.</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80b3-8881-e26f333a1ff4" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-806d-aaba-dcbff9d76800" class="" style="margin-top: 0px">사용 기술</h3></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8054-893e-fbd5a8952f4a" class="">C# / .NET Framework / WinForms / MSSQL /  Visual Studio</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-800e-8b48-ed5af2a6c75c" style="margin-top: 0px;margin-bottom: 0px;" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80bc-aecc-cbc4d3ce2993" class="">[ 주요 기능 ]</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8027-b5b4-d11fdb39d350" class="bulleted-list"><li style="list-style-type:disc">🔎 사용자 및 영업소 정보 조건 조회 (ID, 사용자명, 고객사, 권한, 영업소 등 복합 검색)</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80f1-949c-e5c53b92037a" class="bulleted-list"><li style="list-style-type:disc">📦 운송장 스캔 데이터 관리<div style="display:contents" dir="auto"><ul id="313c115f-af6f-80d4-b0dd-d9e19ac96c43" class="bulleted-list"><li style="list-style-type:circle">최신 5,000건 조회</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80c1-9de5-e055b5957c6c" class="bulleted-list"><li style="list-style-type:circle">상세 정보 확인 및 수정</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-805a-ac3b-f227aacda027" class="bulleted-list"><li style="list-style-type:circle">상태별 일괄 삭제 처리</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80ee-916c-f2c683bf8355" class="bulleted-list"><li style="list-style-type:disc">🗂 공통 코드 관리<div style="display:contents" dir="auto"><ul id="313c115f-af6f-80d0-a93b-f96341886be5" class="bulleted-list"><li style="list-style-type:circle">코드 구분 / 코드 내용 조건 검색</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80a8-84c1-ef6bee28f69e" class="bulleted-list"><li style="list-style-type:circle">동적 쿼리 기반 조회</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8093-8174-d64023f1f7e1" class="bulleted-list"><li style="list-style-type:disc">🏢 영업소 관리<div style="display:contents" dir="auto"><ul id="313c115f-af6f-80d9-b0ee-f88c7b5c373b" class="bulleted-list"><li style="list-style-type:circle">전체영업소 , 실제운영하는 영업소 , 폐쇄된 영업소  구분 조회</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8066-a63f-d61ce9d720fe" class="bulleted-list"><li style="list-style-type:circle">ComboBox 기반 선택 조회 기능 구현</li></ul></div></li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8057-af47-c3fef69f52d5" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80e7-a895-fefa29ee5f3f" class=""> [ 개선사항 ]</h3></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80e6-9ae0-ce9f651ed8a4" class="">DB 연결 정보 모듈화</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-807c-84a7-e8ed9a4bb462" class="bulleted-list"><li style="list-style-type:disc">반복 사용되던 연결 정보를 <code>DB_Info</code> 클래스로 분리</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-803a-9ebc-fc749b9ae9d6" class="bulleted-list"><li style="list-style-type:disc">재사용 가능한 구조로 개선</li></ul></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-8004-9678-c48690669502" class=""> SQL 쿼리 함수화</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-806c-be2c-ea04cf07b87d" class="bulleted-list"><li style="list-style-type:disc">중복되던 조건 검색 쿼리를 공통 메서드로 추출</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8062-98fe-fcfabcb0a613" class="bulleted-list"><li style="list-style-type:disc">코드 중복 제거 및 유지보수성 향상</li></ul></div><div style="display:contents" dir="auto"><h3 id="313c115f-af6f-80d0-b850-c16c7051a3d4" class="">조건 기반 동적 쿼리 개선</h3></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8043-b2f8-ea84828952c6" class="bulleted-list"><li style="list-style-type:disc">Boolean 조건 변수 활용</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8085-9e3b-e2b223451203" class="bulleted-list"><li style="list-style-type:disc">WHERE 절 생성 로직 단순화</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80d7-821e-ee841d8e2a80" class="bulleted-list"><li style="list-style-type:disc">가독성 및 확장성 개선</li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80f7-998f-d97f4a5ad452" class="">
+</p></div><div style="display:contents" dir="auto"><blockquote id="313c115f-af6f-8024-97aa-e79dac51faf9" class=""><div style="display:contents" dir="auto"><p id="313c115f-af6f-80b8-85bf-c9840934828c" class="">레거시 환경에서 인덱스 추가 불가, 구조 변경 어려움에서</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-800b-9ee8-e5a7637a6e8d" class="">현실적인 조건 속에서 문제를 해결하는 역량을 기를 수 있었습니다.</p></div></blockquote></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80fe-8df7-dce6933ce9a7" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="313c115f-af6f-801f-b733-df569757b760"/></div><div style="display:contents" dir="auto"><h2 id="313c115f-af6f-8098-ba57-c3ca4e34005e" class="">🕍<mark class="highlight-orange">Education</mark></h2></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8040-a97f-f4f13df15d84" class="bulleted-list"><li style="list-style-type:disc"><strong>Java 웹 애플리케이션 개발자 양성과정 - 중앙HTA </strong>2023.10 ~ 2024.05</li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80bd-8bc6-cf7e404651e4" class="bulleted-list"><li style="list-style-type:disc"><strong>BackEnd 웹개발자 취업 과정 - 남궁성의 정석코딩  </strong><mark class="highlight-default">2023.04 - 2023.09</mark><strong><br/></strong></li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-8095-b864-e60c6542de10" class="bulleted-list"><li style="list-style-type:disc"><strong>서정대학교 (2,3년제) (주간) 2012.03 ~ 2017.02 (졸업)  </strong>호텔조리학과 </li></ul></div><div style="display:contents" dir="auto"><ul id="313c115f-af6f-80e2-87ba-def6752197d3" class="bulleted-list"><li style="list-style-type:disc"><strong>서정대학교 (4년제) (야간) 2017.03 ~ 2019.02 (졸업)   </strong>식품조리학과 </li></ul></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-8052-9511-c1b63893d221" class="">
+</p></div><div style="display:contents" dir="auto"><p id="313c115f-af6f-80b3-af3e-e609203162ce" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
