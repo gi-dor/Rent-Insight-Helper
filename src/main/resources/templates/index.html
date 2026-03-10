@@ -16,6 +16,7 @@
             color: white;
             padding: 100px 0;
         }
+        /*card 에다가 둥둥 떠다리게 */
         .feature-card:hover {
             transform: translateY(-5px);
             transition: 0.3s;
@@ -32,6 +33,10 @@
         }
         main {
             flex-grow: 1;
+        }
+
+        .trust-banner {
+            background-color: #f8faff; /* 아주 연하고 시원한 느낌의 파스텔 블루 배경 */
         }
     </style>
 </head>
@@ -59,6 +64,28 @@
         </div>
     </section>
 
+    <!-- 배너  -->
+    <section class="trust-banner py-5 mt-2">
+        <div class="container text-center py-5">
+
+        <!--  아래 화살표 둥둥-->
+            <div class="mb-5 floating-arrow">
+                <i class="bi bi-chevron-compact-down text-secondary" style="font-size: 3.5rem; opacity: 0.5;"></i>
+            </div>
+
+            <div class="mb-4">
+                <i class="bi bi-shield-check text-primary" style="font-size: 3.5rem; opacity: 0.8;"></i>
+            </div>
+
+            <h2 class="fw-bold mb-2 text-dark">
+                부린이를 위한 부동산 허위매물 필터
+            </h2>
+            <h2 class="fw-bold text-dark">
+                <span class="text-primary">실거래 기반 시세 파악</span> 처음부터 끝까지 저희가 도와드릴게요
+            </h2>
+        </div>
+    </section>
+
     <!-- 주요 기능 소개 -->
     <section class="py-5">
         <div class="container">
@@ -82,11 +109,14 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 border-0 p-3 feature-card">
+                    <div class="card h-100 border-0 p-3 feature-card position-relative" style="cursor: pointer;">
                         <div class="card-body">
-                            <i class="bi bi-file-earmark-spreadsheet text-success display-4 mb-3"></i>
-                            <h4 class="card-title">데이터 다운로드</h4>
-                            <p class="card-text text-muted">검색된 데이터를 엑셀로 다운로드하여 나만의 분석 자료를 만드세요.</p>
+                                <i class="bi bi-file-earmark-spreadsheet text-success display-4 mb-3"></i>
+                                <h4 class="card-title">데이터 다운로드</h4>
+                                <p class="card-text text-muted">검색된 데이터를 엑셀로 다운로드하여 나만의 분석 자료를 만드세요.</p>
+                                <a th:href="@{/rent/search}" class="btn btn-success rounded-pill px-4 fw-bold shadow-sm stretched-link">
+                                    조회하러 가기 <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
                         </div>
                     </div>
                 </div>
