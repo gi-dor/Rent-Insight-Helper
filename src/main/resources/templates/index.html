@@ -54,10 +54,10 @@
             <p class="lead mb-5">원하는 지역의 실거래가 데이터를 가장 빠르고 정확하게 확인하세요.</p>
 
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-5">
                     <form class="d-flex bg-white p-1 rounded shadow">
                         <input class="form-control border-0 me-2" type="search" placeholder="지역명(동) 또는 아파트명을 입력하세요" aria-label="Search">
-                        <button class="btn btn-primary px-4 text-nowrap" type="submit">검색</button>
+                        <button class="btn btn-dark px-4 text-nowrap" type="submit">검색</button>
                     </form>
                 </div>
             </div>
@@ -96,6 +96,9 @@
                             <i class="bi bi-graph-up-arrow text-primary display-4 mb-3"></i>
                             <h4 class="card-title">시세 추이 분석</h4>
                             <p class="card-text text-muted">과거부터 현재까지의 전월세 가격 변동을 그래프로 한눈에 파악하세요.</p>
+                            <a th:href="@{/}" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm stretched-link">
+                                개발 예정 <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -105,6 +108,9 @@
                             <i class="bi bi-bell text-warning display-4 mb-3"></i>
                             <h4 class="card-title">맞춤 매물 알림</h4>
                             <p class="card-text text-muted">원하는 지역, 평형, 가격 조건을 설정하면 새로운 실거래 등록 시 알려드립니다.</p>
+                            <a th:href="@{/}" class="btn btn-warning rounded-pill px-4 fw-bold shadow-sm stretched-link">
+                                개발 예정 <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
