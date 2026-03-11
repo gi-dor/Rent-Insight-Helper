@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/members/login", "/members/join").permitAll()
+                        .requestMatchers("/rent/search").permitAll()
                         .requestMatchers("/members/mypage").authenticated()
                         .anyRequest().authenticated()
                 )
