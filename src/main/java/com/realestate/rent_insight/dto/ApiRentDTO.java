@@ -27,6 +27,24 @@ public class ApiRentDTO {
     //  가끔 int 타입 변수에 값이 비어있는게 있어서 null 허용하려고 Integer 사용
     // <buildYear></buildYear> 요따위로 들어옴
 
+    // XML 태그 이름은 'offiNm'이지만 name으로 변경
+//    @JsonProperty("offiNm")
+//    private String name; // 오피스텔 이름
+
+    private String name;
+
+    // 빌라 오피스텔 두개 다 운용 하기 위해 변경됨
+    @JsonProperty("offiNm")
+    public void setOffiName(String name) {
+        this.name = name;
+    }
+
+    @JsonProperty("mhouseNm")
+    public void setMhName(String name) {
+        this.name = name;
+    }
+
+
     @JsonProperty("buildYear")
     private Integer buildYear; // 건축년도
 
@@ -62,10 +80,6 @@ public class ApiRentDTO {
 
     @JsonProperty("monthlyRent")
     private String monthlyRent; // 월세
-
-    // XML 태그 이름은 'offiNm'이지만 name으로 변경
-    @JsonProperty("offiNm")
-    private String name; // 오피스텔 이름
 
     @JsonProperty("sggCd")
     private String sggCd; // 시군구코드
