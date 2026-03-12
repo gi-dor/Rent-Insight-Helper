@@ -15,13 +15,16 @@ class CallApiServiceTest {
     @Autowired
     private CallApiService callApiService;
 
+    @Autowired
+    private CallApiDBLogicService callApiDBLogicService;
+
     /**
      * 스케줄러가 호출하는 '이번 달' 데이터 수집 기능을 테스트합니다.
      */
     @Test
     @DisplayName("이번 달 데이터 수집 테스트")
     void callDataSeoulTest() {
-        callApiService.callDataSeoul();
+        callApiService.scheduleCallDataSeoul();
     }
 
     /**
@@ -43,7 +46,7 @@ class CallApiServiceTest {
                 String dealYmd = String.format("%d%02d", year, month);
                 
                 // 특정 년월의 데이터 수집 실행
-                callApiService.callDataSeoulPast(dealYmd);
+                callApiDBLogicService.callDataProcess(dealYmd);
             }
         }
     }
@@ -56,7 +59,7 @@ class CallApiServiceTest {
         String targetDealYmd = "202401";
 
         System.out.println("\n\n===== 첫 번째 수집 시작: " + targetDealYmd + " =====\n");
-        callApiService.callDataSeoulPast(targetDealYmd);
+        callApiDBLogicService.callDataProcess(targetDealYmd);
         System.out.println("\n===== 첫 번째 수집 완료: " + targetDealYmd + " =====\n\n");
 
 
