@@ -56,7 +56,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-5">
                     <form class="d-flex bg-white p-1 rounded shadow">
-                        <input class="form-control border-0 me-2" type="search" placeholder="지역명(동) 또는 아파트명을 입력하세요" aria-label="Search">
+                        <input class="form-control border-0 me-2" type="search" placeholder="사실 여기는 기능 구현 안했습니다" aria-label="Search">
                         <button class="btn btn-dark px-4 text-nowrap" type="submit">검색</button>
                     </form>
                 </div>
@@ -78,10 +78,10 @@
             </div>
 
             <h2 class="fw-bold mb-2 text-dark">
-                부린이를 위한 부동산 허위매물 필터
+                부린이를 위한 부동산 허위매물 필터 , 시세파악
             </h2>
             <h2 class="fw-bold text-dark">
-                <span class="text-primary">실거래 기반 시세 파악</span> 처음부터 끝까지 저희가 도와드릴게요
+                <span class="text-primary">실거래 기반 시세 파악</span> 처음부터 끝까지 제가 도와드릴게요
             </h2>
         </div>
     </section>
@@ -132,7 +132,8 @@
 </main>
 
 <!-- 공지사항 모달 Fragment -->
-<div th:replace="~{common/noticeModal :: noticeModal}"></div>
+<!--<div th:replace="~{common/noticeModal :: noticeModal}"></div>-->
+<div th:replace="~{common/devModal :: devModal}"></div>
 
 <!-- 푸터 -->
 <footer th:replace="~{common/footer :: footer}"></footer>
@@ -152,8 +153,18 @@
 
         // 실제 업무 들어간다면
         if(!getCookie('hideNotice')) {
-            let noticeModal = new bootstrap.Modal(document.getElementById('noticeModal'));
-            noticeModal.show();
+            let devModalElement = document.getElementById('devModal');
+            let devModal = new bootstrap.Modal(devModalElement, {
+                backdrop: false // 까만 배경 제거
+            });
+
+            // 모달창 띄울때 body에 생기는 스타일 제거를 위해 show.bs.modal 이벤트 사용
+            devModalElement.addEventListener('show.bs.modal', function () {
+                document.body.style.paddingRight = '0px';
+                devModalElement.querySelector('.modal-content').classList.add('shadow-lg');
+            });
+
+            devModal.show();
         }
     }
 
@@ -188,10 +199,10 @@
     }
 
     function closeNoticeModal() {
-        let checkbox = document.getElementById('hideFor24Hours');
-        if(checkbox.checked) {
+        let checkbox = document.getElementById('hideDevFor24Hours');
+        if(checkbox && checkbox.checked) {
             // 체크 되어있다면 쿠키 설정되어있는 setCookie()
-            setCookie("hideNotice","true",1);
+            setCookie("hideNotice","true",1); // hideNotice라는 이름으로 굽기
         }
     }
 

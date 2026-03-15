@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- ============================================== -->
+<!-- [시작] 개발자 공지사항 팝업 (모달) Fragment -->
+<!-- ============================================== -->
+<div th:fragment="devModal">
+    <div class="modal fade" id="devModal" tabindex="-1" aria-labelledby="devModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+
+                <div class="modal-header text-white" style="background-color: #0d47a1;">
+                    <h5 class="modal-title fw-bold" id="devModalLabel">
+                        <i class="bi bi-person-workspace me-2"></i>개발자 공지사항
+                    </h5>
+                    <!-- data-bs-dismiss="modal"이 모달을 닫아줍니다. onclick에서는 쿠키 저장만 호출합니다. -->
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="closeNoticeModal()"></button>
+                </div>
+
+                <!-- 모달 바디 (내용) -->
+                <div class="modal-body p-4 p-md-5">
+
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <i class="bi bi-emoji-smile-fill text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="fw-bold text-dark mb-0">안녕하세요, 개발자 gidor입니다.</h5>
+                        </div>
+                    </div>
+
+                    <div class="bg-light p-4 rounded-3 mb-4" style="border-left: 4px solid #0d6efd;">
+                        <p class="text-dark mb-3" style="font-size: 1rem; line-height: 1.7;">
+                            현재 사이트는 베타테스트 중이며 탄생 배경은 <br/>
+                            제가 직접 전월세 이사를 위해 매물을 알아보면서 겪었던 <strong>'불편함'</strong>에서 시작되었습니다.
+                        </p>
+                        <p class="text-dark mb-0" style="font-size: 1rem; line-height: 1.7;">
+                            허위 매물을 걸러내고 원하는 동네의 진짜 시세를 알기 위해 여러 부동산에 연락했던 <br/> 피로감을 해결하고자 <span class="text-primary fw-bold">Rent Insight</span>를 기획하게 되었습니다.
+                        </p>
+                    </div>
+
+                    <p class="text-muted fw-semibold mb-2">
+                        <i class="bi bi-chat-quote-fill me-2 text-secondary"></i>단순한 취업용 포트폴리오가 아닙니다.
+                    </p>
+                    <p class="text-muted mb-0" style="font-size: 0.95rem; line-height: 1.6;">
+                        한 번 만들고 취업 이후 버려지는 프로젝트가 아니라, 이사 시즌마다 누구나 찾아와서 <br/>
+                        간단한 검색만으로
+                        <strong>'최소한 어느 정도의 평수에, 얼마의 가격이 필요한가'</strong>를 유추할 수 있는 <br/>
+                        실질적인 도구가 되기를 희망합니다. <br><br><br>
+
+                        결혼하면 그때는 아파트도 업데이트 하겠습니다 감사합니다!
+                    </p>
+
+                </div>
+
+                <!-- 모달 푸터 (24시간 보지 않기 & 닫기) -->
+                <div class="modal-footer d-flex justify-content-between bg-light border-top-0 pt-0 pb-3 px-4">
+                    <div class="form-check mb-0 mt-2">
+                        <input class="form-check-input" type="checkbox" id="hideDevFor24Hours">
+                        <label class="form-check-label text-muted small mt-1" for="hideDevFor24Hours" style="cursor: pointer;">
+                            24시간 동안 보지 않기
+                        </label>
+                    </div>
+                    <!-- data-bs-dismiss="modal"이 모달을 닫아줍니다. onclick에서는 쿠키 저장만 호출합니다. -->
+                    <button type="button" class="btn btn-secondary px-4 rounded-pill shadow-sm" data-bs-dismiss="modal" onclick="closeNoticeModal()">
+                        닫기
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>
