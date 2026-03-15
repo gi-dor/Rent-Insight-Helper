@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: SSH(원격접속)을 통해 EC2에 접속하기
-      - uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }} # EC2의 주소
-#          username: ${{ secrets.EC2_USERNAME }} # EC2 접속 username
+          username: ${{ secrets.EC2_USERNAME }} # EC2 접속 username (필수)
           key: ${{ secrets.EC2_PRIVATE_KEY }} # EC2의 Key 파일의 내부 텍스트
           script_stop: true # 아래 script 중 실패하는 명령이 하나라도 있으면 실패로 처리
           script: |
